@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Meta/> should match snapshot 1`] = `
+<Head>
+  <title>
+    Rice Bowl
+  </title>
+  <meta
+    charSet="utf-8"
+  />
+  <meta
+    content="yes"
+    name="mobile-web-app-capable"
+  />
+  <meta
+    content="yes"
+    name="apple-mobile-web-app-capable"
+  />
+  <meta
+    content="black-translucent"
+    name="apple-mobile-web-app-status-bar-style"
+  />
+  <meta
+    content="Rice Bowl"
+    name="apple-mobile-web-app-title"
+  />
+  <meta
+    content="Rice Bowl"
+    name="application-name"
+  />
+  <meta
+    content="Bring your own ingredients"
+    name="description"
+  />
+  <meta
+    content="#1d2020"
+    name="theme-color"
+  />
+  <meta
+    content="width=device-width, initial-scale=1, user-scalable=0, viewport-fit=cover"
+    name="viewport"
+  />
+  <link
+    href="/images/icon-maskable-512.png"
+    rel="apple-touch-icon"
+  />
+  <link
+    href="/images/favicon.png"
+    rel="icon"
+    type="image/png"
+  />
+  <link
+    href="/manifest.json"
+    rel="manifest"
+  />
+</Head>
+`;
