@@ -3,7 +3,7 @@
 exports[`<Meta/> should match snapshot 1`] = `
 <Head>
   <title>
-    Rice Bowl
+    FAMS
   </title>
   <meta
     charSet="utf-8"
@@ -21,15 +21,15 @@ exports[`<Meta/> should match snapshot 1`] = `
     name="apple-mobile-web-app-status-bar-style"
   />
   <meta
-    content="Rice Bowl"
+    content="FAMS"
     name="apple-mobile-web-app-title"
   />
   <meta
-    content="Rice Bowl"
+    content="FAMS"
     name="application-name"
   />
   <meta
-    content="Bring your own ingredients"
+    content="A visualization and monitoring tool for CCS"
     name="description"
   />
   <meta
