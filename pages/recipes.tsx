@@ -2,14 +2,6 @@ import Page from '@/components/page'
 
 const Recipes = () => (
 	<Page>
-		<section className='mt-20'>
-			<h2 className='text-xl font-semibold'>Ingredients</h2>
-
-			<p className='mt-2 text-gray-600 dark:text-gray-400'>
-				Like any good recipe, we appreciate community offerings to cultivate a
-				delicous dish.
-			</p>
-		</section>
 
 		<section className='mt-10'>
 			<h3 className='font-medium'>Thanks to</h3>

@@ -1,7 +1,7 @@
 {
-	"name": "Progressive Web App Template",
-	"short_name": "PWA Template",
-	"description": "A template for progressive web apps",
+	"name": "Flow Assurance Management System",
+	"short_name": "FAMS",
+	"description": "A visualization and monitoring tool for CCS",
 	"icons": [
 		{
 			"src": "/images/icon-192.png",
