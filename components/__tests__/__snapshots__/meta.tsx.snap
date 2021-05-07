@@ -45,7 +45,7 @@ exports[`<Meta/> should match snapshot 1`] = `
     rel="apple-touch-icon"
   />
   <link
-    href="/images/favicon.png"
+    href="/images/favicon.ico"
     rel="icon"
     type="image/png"
   />
