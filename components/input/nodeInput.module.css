@@ -1,0 +1,3 @@
+.prop {
+	@apply flex flex-row justify-center mb-2;
+}
