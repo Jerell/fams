@@ -6,7 +6,6 @@ module.exports = {
 		'\\.(scss|sass|css)$': 'identity-obj-proxy',
 	},
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-	snapshotSerializers: ['enzyme-to-json/serializer'],
 	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 	testPathIgnorePatterns: [
 		'<rootDir>/.next/',
