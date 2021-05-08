@@ -1,9 +1,16 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import NodeInput from '../nodeInput'
+import toTitleCase from '@/public/utils/toTitleCase'
 
 describe('<NodeInput/>', () => {
-	it('should match snapshot', () => {
-		const component = render(<NodeInput />)
-		// expect(component).toMatchSnapshot()
+	const properties = ['pressure', 'temperature', 'flow rate']
+
+	beforeEach(() => {
+		render(<NodeInput />)
+	})
+
+	it('should render a <SingleProperty /> for the first given property name', () => {
+		const firstText = toTitleCase(properties[0])
+		expect(screen.queryByText(firstText)).toBeInTheDocument()
 	})
 })

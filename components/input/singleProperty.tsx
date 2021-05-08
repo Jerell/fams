@@ -5,7 +5,7 @@ interface Props {
 	property: string
 }
 
-const SingleProperty = ({ property }) => {
+const SingleProperty = ({ property }: Props) => {
 	const [value, setValue] = useState(0)
 
 	function update(e) {
@@ -16,7 +16,7 @@ const SingleProperty = ({ property }) => {
 		<>
 			<div className='grid grid-cols-3 gap-3 mb-2'>
 				<label htmlFor={property}>{toTitleCase(property)}</label>
-				<input type='number' name={property} onChange={update} />
+				<input type='number' id={property} name={property} onChange={update} />
 				<p>{value}</p>
 			</div>
 		</>
