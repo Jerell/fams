@@ -1,7 +1,10 @@
 import SingleProperty from './singleProperty'
 
-const NodeInput = () => {
-	const properties = ['pressure', 'temperature', 'flow rate']
+interface Props {
+	properties: string[]
+}
+
+const NodeInput = ({ properties }: Props) => {
 	return (
 		<>
 			<div className='max-w-xs'>

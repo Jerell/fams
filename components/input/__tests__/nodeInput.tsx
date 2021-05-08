@@ -6,7 +6,7 @@ describe('<NodeInput/>', () => {
 	const properties = ['pressure', 'temperature', 'flow rate']
 
 	beforeEach(() => {
-		render(<NodeInput />)
+		render(<NodeInput properties={properties} />)
 	})
 
 	it('should render a <SingleProperty /> for the first given property name', () => {

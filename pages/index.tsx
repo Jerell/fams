@@ -8,7 +8,7 @@ const Index = () => (
 				Metering unit
 			</h2>
 
-			<NodeInput />
+			<NodeInput properties={['pressure', 'temperature', 'flow rate']} />
 		</section>
 	</Page>
 )
