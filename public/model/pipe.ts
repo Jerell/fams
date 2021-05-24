@@ -19,7 +19,7 @@ export default class Pipe {
 		out: number
 	}
 	private _source: Node
-	_destination: Node
+	private _destination: Node
 
 	constructor(props: IPipe = {}) {
 		this.name = props.name || 'pipesection'
