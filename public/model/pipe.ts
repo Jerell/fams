@@ -1,6 +1,6 @@
 import Node from './node'
 
-interface IPipe {
+export interface IPipe {
 	name?: string
 	length?: number
 	diameter?: number

@@ -1,4 +1,4 @@
-interface INode {
+export interface INode {
 	name?: string
 	x?: number
 	elevation?: number
