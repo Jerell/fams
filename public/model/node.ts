@@ -55,4 +55,8 @@ export default class Node {
 		this._flow.in = i
 		this._flow.out = i // conserve mass
 	}
+
+	get outflow() {
+		return this._flow.out
+	}
 }

@@ -66,3 +66,13 @@ describe('Type', () => {
 		expect(node.type).toBe('internal')
 	})
 })
+
+describe('Flow', () => {
+	it('should update outflow to match when inflow changes', () => {
+		const node = new Node()
+
+		node.inflow = 1
+
+		expect(node.outflow).toBe(1)
+	})
+})
