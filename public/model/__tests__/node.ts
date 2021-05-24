@@ -46,9 +46,9 @@ describe('Pressure', () => {
 })
 
 describe('Type', () => {
-	it('should have a default type of `internal`', () => {
+	it('should have a default type of `closed`', () => {
 		const node = new Node()
-		expect(node.type).toBe('internal')
+		expect(node.type).toBe('closed')
 	})
 
 	it('should have a type of `source` when its only flow value is `out`', () => {
@@ -59,5 +59,10 @@ describe('Type', () => {
 	it('should have a type of `destination` when its only flow value is `in`', () => {
 		const node = new Node({ flow: { in: 1 } })
 		expect(node.type).toBe('destination')
+	})
+
+	it('should have a type of `internal` when its inflow and outflow are equal and non-zero', () => {
+		const node = new Node({ flow: { in: 1, out: 1 } })
+		expect(node.type).toBe('internal')
 	})
 })

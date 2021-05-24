@@ -41,6 +41,7 @@ export default class Node {
 	}
 
 	get type() {
+		if (this.flow.in + this.flow.out === 0) return 'closed'
 		if (this.flow.out > this.flow.in) return 'source'
 		if (this.flow.in > this.flow.out) return 'destination'
 		return 'internal'
