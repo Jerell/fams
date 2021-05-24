@@ -10,7 +10,7 @@
 		"xo": "xo !*.config.js",
 		"test": "jest",
 		"test:unit": "jest",
-		"test:watch": "jest --watch",
+		"test:watch": "jest --watch --verbose",
 		"type-check": "tsc"
 	},
 	"dependencies": {
