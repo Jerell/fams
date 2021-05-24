@@ -25,6 +25,16 @@ describe('Constructor', () => {
 		const node = new Node()
 		expect(node.temperature).not.toBeUndefined()
 	})
+
+	it('should have an inflow value', () => {
+		const node = new Node()
+		expect(node.flow.in).not.toBeUndefined()
+	})
+
+	it('should have an outflow value', () => {
+		const node = new Node()
+		expect(node.flow.out).not.toBeUndefined()
+	})
 })
 
 describe('Pressure', () => {
@@ -32,5 +42,22 @@ describe('Pressure', () => {
 		const node = new Node()
 		node.pressure = 1
 		expect(node.pressure).toBe(1)
+	})
+})
+
+describe('Type', () => {
+	it('should have a default type of `internal`', () => {
+		const node = new Node()
+		expect(node.type).toBe('internal')
+	})
+
+	it('should have a type of `source` when its only flow value is `out`', () => {
+		const node = new Node({ flow: { out: 1 } })
+		expect(node.type).toBe('source')
+	})
+
+	it('should have a type of `destination` when its only flow value is `in`', () => {
+		const node = new Node({ flow: { in: 1 } })
+		expect(node.type).toBe('destination')
 	})
 })

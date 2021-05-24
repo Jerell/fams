@@ -4,6 +4,10 @@ interface INode {
 	elevation?: number
 	pressure?: number
 	temperature?: number
+	flow?: {
+		in?: number
+		out?: number
+	}
 }
 
 export default class Node {
@@ -12,6 +16,10 @@ export default class Node {
 	elevation: number
 	pressure: number
 	temperature: number
+	private _flow: {
+		in: number
+		out: number
+	}
 
 	constructor(props: INode = {}) {
 		this.name = props.name || 'node'
@@ -19,5 +27,31 @@ export default class Node {
 		this.elevation = props.elevation || 0
 		this.pressure = props.pressure || 0
 		this.temperature = props.temperature || 0
+		this._flow = {
+			in: 0,
+			out: 0,
+		}
+
+		if (props.flow && props.flow.out) this._flow.out = props.flow.out
+		if (props.flow && props.flow.in) this._flow.in = props.flow.in
+	}
+
+	get flow() {
+		return this._flow
+	}
+
+	get type() {
+		if (this.flow.out > this.flow.in) return 'source'
+		if (this.flow.in > this.flow.out) return 'destination'
+		return 'internal'
+	}
+
+	get inflow() {
+		return this.flow.in
+	}
+
+	set inflow(i) {
+		this._flow.in = i
+		this._flow.out = i // conserve mass
 	}
 }
