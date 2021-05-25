@@ -72,6 +72,12 @@ describe('Chain', () => {
 		expect(sec.network.pipes.length).toBe(3)
 	})
 
+	it('should set the x position of the second node to be 100 when the resolution is 100', () => {
+		const sec = new Section({ length: 250, resolution: 100 })
+
+		expect(sec.network.nodes[1].x).toBe(100)
+	})
+
 	it('should link one pipe to the next', () => {
 		const sec = new Section({ length: 200, resolution: 100 })
 

@@ -58,10 +58,9 @@ export default class Section {
 		let remainingLength = this.length
 		let lastPipeEnd
 
-		while (
-			this.length - this.resolution * (this.network.pipes.length + 1) >=
-			0
-		) {
+		const x = () => this.resolution * this.network.pipes.length
+
+		while (this.length - (x() + this.resolution) >= 0) {
 			const isFirstPipe = this.network.pipes.length === 0
 			remainingLength -= this.resolution
 			const isLastPipe = remainingLength <= this.resolution
