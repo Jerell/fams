@@ -30,8 +30,8 @@ export default class Pipe {
 			in: 0,
 			out: 0,
 		}
-		this._source = new Node()
-		this._destination = new Node()
+		this._source = new Node({ name: `${this.name}S` })
+		this._destination = new Node({ name: `${this.name}D` })
 
 		if (props.source) this.source = props.source
 		if (props.destination) this.destination = props.destination
