@@ -7,7 +7,7 @@ export interface IPipe {
 	massFlow?: number
 	source?: Node
 	destination?: Node
-	xStart?: number
+	x?: number
 }
 
 export default class Pipe {
@@ -23,7 +23,7 @@ export default class Pipe {
 	private _destination: Node
 
 	constructor(props: IPipe = {}) {
-		this.name = props.name || 'pipesection'
+		this.name = props.name || 'pipe'
 		this.length = props.length || 200
 		this.diameter = props.diameter || 2
 		this.massFlow = props.massFlow || 0
@@ -32,10 +32,10 @@ export default class Pipe {
 			out: 0,
 		}
 
-		this._source = new Node({ name: `${this.name}S`, x: props.xStart })
+		this._source = new Node({ name: `${this.name}S`, x: props.x })
 		this._destination = new Node({
 			name: `${this.name}D`,
-			x: (props.xStart || 0) + this.length,
+			x: (props.x || 0) + this.length,
 		})
 
 		if (props.source) this.source = props.source
