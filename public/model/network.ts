@@ -31,6 +31,7 @@ export default class Network {
 	addPipe(props: IPipe = {}) {
 		const name = props.name || `${this.name}-P${this.pipes.length}`
 		props.name = name
+		if (this.nodes.length) props.source = this.nodes[this.nodes.length - 1]
 		const p = new Pipe(props)
 		this.pipes.push(p)
 		this.nodes.push(p.destination)
