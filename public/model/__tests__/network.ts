@@ -3,16 +3,19 @@ import Network from '../network'
 describe('Constructor', () => {
 	it('should have a name', () => {
 		const net = new Network()
+
 		expect(net.name).toBeTruthy()
 	})
 
 	it('should have a list of nodes', () => {
 		const net = new Network()
+
 		expect(net.nodes).toEqual([])
 	})
 
 	it('should have a list of pipes', () => {
 		const net = new Network()
+
 		expect(net.pipes).toEqual([])
 	})
 })
