@@ -7,6 +7,7 @@ export interface IPipe {
 	massFlow?: number
 	source?: Node
 	destination?: Node
+	xStart?: number
 }
 
 export default class Pipe {
@@ -30,8 +31,12 @@ export default class Pipe {
 			in: 0,
 			out: 0,
 		}
-		this._source = new Node()
-		this._destination = new Node()
+
+		this._source = new Node({ name: `${this.name}S`, x: props.xStart })
+		this._destination = new Node({
+			name: `${this.name}D`,
+			x: (props.xStart || 0) + this.length,
+		})
 
 		if (props.source) this.source = props.source
 		if (props.destination) this.destination = props.destination
