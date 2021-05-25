@@ -42,10 +42,10 @@ export default class Network {
 
 		if (!this.pipes.length) throw `Network (${this.name}) has no pipes`
 
-		const connections = this.pipes.map((pipe) => [
-			pipe.source,
-			pipe.destination,
-		])
+		// const connections = this.pipes.map((pipe) => [
+		// 	pipe.source,
+		// 	pipe.destination,
+		// ])
 
 		// const nodesWithConnections = connections.flat()
 
