@@ -8,7 +8,6 @@ interface ISection {
 	length?: number
 	source?: Node
 	destination?: Node
-	nodes?: Node[]
 }
 
 export default class Section {
@@ -17,7 +16,6 @@ export default class Section {
 	length: number
 	private _source: Node
 	private _destination: Node
-	nodes: Node[]
 	network: Network
 
 	constructor(props: ISection = {}) {
@@ -32,8 +30,6 @@ export default class Section {
 
 		if (props.source) this.source = props.source
 		if (props.destination) this.destination = props.destination
-
-		this.nodes = [this.source]
 
 		this.network = new Network({ name: `${this.name}-net` })
 		this.network.addNode(this.source)

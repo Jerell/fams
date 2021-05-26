@@ -32,14 +32,6 @@ describe('Constructor', () => {
 		expect(sec.destination).toBeInstanceOf(Node)
 	})
 
-	it('should have a default node list that begins with its source node', () => {
-		const sec = new Section()
-
-		const source = sec.source
-
-		expect(sec.nodes[0]).toBe(source)
-	})
-
 	it('should have a network containing its source node', () => {
 		const sec = new Section()
 
