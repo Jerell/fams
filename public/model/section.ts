@@ -99,6 +99,6 @@ export default class Section {
 			remainingLength = 0
 		}
 
-		return remainingLength
+		return this.network
 	}
 }
