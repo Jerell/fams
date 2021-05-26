@@ -1,6 +1,6 @@
 import Node from '../node'
 
-describe('Constructor', () => {
+describe('Constructor - initial properties', () => {
 	it('should have a name', () => {
 		const node = new Node()
 
@@ -41,6 +41,78 @@ describe('Constructor', () => {
 		const node = new Node()
 
 		expect(node.flow.out).not.toBeUndefined()
+	})
+})
+
+describe('Constructor - receiving properties', () => {
+	it('should accept a name', () => {
+		const node = new Node({ name: 'michael' })
+
+		expect(node.name).toBe('michael')
+	})
+
+	it('should accept an x position', () => {
+		const node = new Node({ x: 1 })
+
+		expect(node.x).toBe(1)
+	})
+
+	it('should accept an elevation value', () => {
+		const node = new Node({ elevation: 1 })
+
+		expect(node.elevation).toBe(1)
+	})
+
+	it('should accept a pressure value', () => {
+		const node = new Node({ pressure: 1 })
+
+		expect(node.pressure).toBe(1)
+	})
+
+	it('should accept a temperature value', () => {
+		const node = new Node({ temperature: 1 })
+
+		expect(node.temperature).toBe(1)
+	})
+
+	it('should accept a `flow.in` value', () => {
+		const node = new Node({ flow: { in: 1 } })
+
+		expect(node.inflow).toBe(1)
+	})
+
+	it('should accept a `flow.out` value', () => {
+		const node = new Node({ flow: { out: 1 } })
+
+		expect(node.outflow).toBe(1)
+	})
+})
+
+describe('Flow getters and setters', () => {
+	it('should return the same value for `node.inflow` and `node.flow.in`', () => {
+		const node = new Node({ flow: { in: 1 } })
+
+		expect(node.inflow).toEqual(node.flow.in)
+	})
+
+	it('should return the same value for `node.outflow` and `node.flow.out`', () => {
+		const node = new Node({ flow: { out: 1 } })
+
+		expect(node.outflow).toEqual(node.flow.out)
+	})
+
+	it('should update the outflow value when inflow is set', () => {
+		const node = new Node()
+
+		node.inflow = 1
+
+		expect(node.inflow).toEqual(node.outflow)
+	})
+
+	it('should not update the outflow value when constructed with a `flow.in` value', () => {
+		const node = new Node({ flow: { in: 1 } })
+
+		expect(node.inflow).not.toEqual(node.outflow)
 	})
 })
 
