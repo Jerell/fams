@@ -25,7 +25,10 @@ export default class Section {
 		this.resolution = props.resolution || 200
 		this.length = props.length || 200
 		this._source = new Node({ name: `${this.name}-source` })
-		this._destination = new Node({ name: `${this.name}-destination` })
+		this._destination = new Node({
+			name: `${this.name}-destination`,
+			x: this.length,
+		})
 
 		if (props.source) this.source = props.source
 		if (props.destination) this.destination = props.destination
@@ -54,24 +57,37 @@ export default class Section {
 		this._destination = n
 	}
 
+	get height() {
+		return this.destination.elevation - this.source.elevation
+	}
+
 	chain() {
 		let remainingLength = this.length
-		let lastPipeEnd
+		let lastPipeEnd = this.source
 
 		const x = () => this.resolution * this.network.pipes.length
 
 		while (this.length - (x() + this.resolution) >= 0) {
-			const isFirstPipe = this.network.pipes.length === 0
+			// const isFirstPipe = this.network.pipes.length === 0
 			remainingLength -= this.resolution
 			const isLastPipe = remainingLength <= this.resolution
 
 			const newPipeProps: IPipe = {
 				name: `${this.name}-P${this.network.pipes.length}`,
-				source: isFirstPipe ? this.source : lastPipeEnd,
+				source: lastPipeEnd,
 				length: this.resolution,
+				x: lastPipeEnd.x,
 			}
 
-			if (isLastPipe) newPipeProps.destination = this.destination
+			if (isLastPipe && !remainingLength) {
+				newPipeProps.destination = this.destination
+			} else if (this.height) {
+				const fractionThroughSection = (x() + this.resolution) / this.length
+				const heightGain =
+					fractionThroughSection * this.height + this.source.elevation
+
+				newPipeProps.endElevation = heightGain
+			}
 
 			const newPipe = this.network.addPipe(newPipeProps)
 
@@ -82,6 +98,8 @@ export default class Section {
 			this.network.addPipe({
 				source: this.network.nodes[this.network.nodes.length],
 				length: remainingLength,
+				destination: this.destination,
+				x: x(),
 			})
 			remainingLength = 0
 		}

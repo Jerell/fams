@@ -8,6 +8,7 @@ export interface IPipe {
 	source?: Node
 	destination?: Node
 	x?: number
+	endElevation?: number
 }
 
 export default class Pipe {
@@ -32,14 +33,23 @@ export default class Pipe {
 			out: 0,
 		}
 
-		this._source = new Node({ name: `${this.name}S`, x: props.x })
-		this._destination = new Node({
-			name: `${this.name}D`,
-			x: (props.x || 0) + this.length,
-		})
+		this._source =
+			props.source || new Node({ name: `${this.name}S`, x: props.x })
 
-		if (props.source) this.source = props.source
-		if (props.destination) this.destination = props.destination
+		this._destination =
+			props.destination ||
+			new Node({
+				name: `${this.name}D`,
+				x: this.length,
+			})
+
+		if (!props.destination) {
+			if (props.x) this.destination.x += props.x
+			if (props.endElevation) this.destination.elevation = props.endElevation
+		}
+
+		// if (props.source) this.source = props.source
+		// if (props.destination) this.destination = props.destination
 	}
 
 	pressureDrop(): number {

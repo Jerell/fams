@@ -31,7 +31,8 @@ export default class Network {
 	addPipe(props: IPipe = {}) {
 		const name = props.name || `${this.name}-P${this.pipes.length}`
 		props.name = name
-		if (this.nodes.length) props.source = this.nodes[this.nodes.length - 1]
+		if (!props.source && this.nodes.length)
+			props.source = this.nodes[this.nodes.length - 1]
 		const p = new Pipe(props)
 		this.pipes.push(p)
 		this.nodes.push(p.destination)
@@ -43,19 +44,17 @@ export default class Network {
 
 		if (!this.pipes.length) throw `Network (${this.name}) has no pipes`
 
-		// const connections = this.pipes.map((pipe) => [
-		// 	pipe.source,
-		// 	pipe.destination,
-		// ])
+		const connections = this.pipes.map((pipe) => [
+			pipe.source,
+			pipe.destination,
+		])
 
-		// const nodesWithConnections = connections.flat()
+		const nodesWithConnections = connections.flat()
 
-		// for (let node of this.nodes) {
-		// 	// const nodeHasAConnection = connections.some((c) => c.includes(node))
-
-		// 	if (!nodesWithConnections.includes(node))
-		// 		throw `node (${node.name}) has missing connections`
-		// }
+		for (let node of this.nodes) {
+			if (!nodesWithConnections.some((n) => n.name === node.name))
+				throw `node (${node.name}) has missing connections`
+		}
 		return true
 	}
 }
