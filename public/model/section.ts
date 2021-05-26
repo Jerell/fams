@@ -17,6 +17,7 @@ export default class Section {
 	private _source: Node
 	private _destination: Node
 	network: Network
+	cosine: number
 
 	constructor(props: ISection = {}) {
 		this.name = props.name || 'section'
@@ -30,6 +31,18 @@ export default class Section {
 
 		if (props.source) this.source = props.source
 		if (props.destination) this.destination = props.destination
+
+		if (!this.destination.x) this.destination.x = this.source.x + this.length
+
+		if (props.source || props.destination) {
+			const distance = this.destination.x - this.source.x
+			if (distance) this.length = distance
+			else this.destination.x = this.length + this.source.x
+		}
+
+		const hypotenuse = Math.sqrt(this.height ** 2 + this.length ** 2)
+
+		this.cosine = this.length / hypotenuse
 
 		this.network = new Network({ name: `${this.name}-net` })
 		this.network.addNode(this.source)
@@ -61,23 +74,24 @@ export default class Section {
 		let remainingLength = this.length
 		let lastPipeEnd = this.source
 
-		const x = () => this.resolution * this.network.pipes.length
+		const xDist = () => this.resolution * this.cosine
+		const x = () => xDist() * this.network.pipes.length
 
-		while (this.length - (x() + this.resolution) >= 0) {
+		while (this.length - (x() + xDist()) >= 0) {
 			// const isFirstPipe = this.network.pipes.length === 0
-			remainingLength -= this.resolution
-			const isLastPipe = remainingLength <= this.resolution
+			remainingLength -= xDist()
+			const isLastPipe = remainingLength <= xDist()
 
 			const newPipeProps: IPipe = {
 				source: lastPipeEnd,
-				length: this.resolution,
+				length: xDist(),
 				x: lastPipeEnd.x,
 			}
 
 			if (isLastPipe && !remainingLength) {
 				newPipeProps.destination = this.destination
 			} else if (this.height) {
-				const fractionThroughSection = (x() + this.resolution) / this.length
+				const fractionThroughSection = (x() + xDist()) / this.length
 				const heightGain =
 					fractionThroughSection * this.height + this.source.elevation
 

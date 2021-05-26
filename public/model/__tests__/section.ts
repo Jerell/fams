@@ -137,6 +137,32 @@ describe('Chain', () => {
 		expect(sec.network.validate()).toBe(true)
 	})
 
+	it('should set the position of the destination node if it is not specified', () => {
+		const s = new Node({ x: 10 })
+		const d = new Node()
+
+		const sec = new Section({ source: s, destination: d })
+
+		expect(sec.destination.x).toBe(s.x + sec.length)
+	})
+
+	it('should determine the section length when given source and destination nodes', () => {
+		const s = new Node({ x: 10 })
+		const d = new Node({ x: 20 })
+
+		const sec = new Section({ source: s, destination: d })
+
+		expect(sec.length).toBe(10)
+	})
+
+	it('should calculate the cosine (1)', () => {
+		const sec = new Section({})
+
+		expect(sec.cosine).toBe(1)
+	})
+})
+
+describe('Chain - Elevation', () => {
 	it('should elevate intermediate pipes according to their distance through the section', () => {
 		const source = new Node({ elevation: 10 })
 		const destination = new Node({ elevation: 20 })
@@ -148,7 +174,16 @@ describe('Chain', () => {
 			destination: destination,
 		})
 
-		expect(sec.network.pipes[0].destination.elevation).toBe(15)
+		expect(sec.network.pipes[0].destination.elevation).toBeCloseTo(14.472)
+	})
+
+	it('should calculate the cosine (345 => 0.6)', () => {
+		const s = new Node()
+		const d = new Node({ x: 3, elevation: 4 })
+
+		const sec = new Section({ source: s, destination: d })
+
+		expect(sec.cosine).toBe(0.6)
 	})
 })
 
