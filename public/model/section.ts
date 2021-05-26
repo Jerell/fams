@@ -69,7 +69,6 @@ export default class Section {
 			const isLastPipe = remainingLength <= this.resolution
 
 			const newPipeProps: IPipe = {
-				name: `${this.name}-P${this.network.pipes.length}`,
 				source: lastPipeEnd,
 				length: this.resolution,
 				x: lastPipeEnd.x,
