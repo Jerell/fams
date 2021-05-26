@@ -60,10 +60,24 @@ describe('Chain', () => {
 		expect(sec.network.pipes[0].length).toBe(sec.resolution)
 	})
 
+	it('should create a series of pipes of length `resolution`', () => {
+		const sec = new Section({ resolution: 10, length: 30 })
+
+		const lengths = sec.network.pipes.map((p) => p.length)
+
+		expect(lengths).toEqual([10, 10, 10])
+	})
+
 	it('should create two pipes when its length is 200 and resolution is 100', () => {
 		const sec = new Section({ length: 200, resolution: 100 })
 
 		expect(sec.network.pipes.length).toBe(2)
+	})
+
+	it('should create four nodes when its length is 250 and resolution is 100', () => {
+		const sec = new Section({ length: 250, resolution: 100 })
+
+		expect(sec.network.nodes.length).toBe(4)
 	})
 
 	it('should create three pipes when its length is 250 and resolution is 100', () => {
@@ -72,16 +86,42 @@ describe('Chain', () => {
 		expect(sec.network.pipes.length).toBe(3)
 	})
 
+	it('should create a final pipe of length 50 when the section length is 250 and resolution is 100', () => {
+		const sec = new Section({ length: 250, resolution: 100 })
+
+		expect(sec.network.pipes[2].length).toBe(50)
+	})
+
 	it('should set the x position of the second node to be 100 when the resolution is 100', () => {
 		const sec = new Section({ length: 250, resolution: 100 })
 
 		expect(sec.network.nodes[1].x).toBe(100)
 	})
 
-	it('should link one pipe to the next', () => {
+	it('should set the x position of the third node to be 200 when the resolution is 100', () => {
+		const sec = new Section({ length: 250, resolution: 100 })
+
+		expect(sec.network.nodes[2].x).toBe(200)
+	})
+
+	it('should set the x positions for `resolution = 10`, `length = 30` to be [0, 10, 20, 30]', () => {
+		const sec = new Section({ length: 30, resolution: 10 })
+
+		const xPositions = sec.network.nodes.map((n) => n.x)
+
+		expect(xPositions).toEqual([0, 10, 20, 30])
+	})
+
+	it('should start the second pipe from the destination node of the first pipe', () => {
 		const sec = new Section({ length: 200, resolution: 100 })
 
-		expect(sec.network.pipes[0].destination).toBe(sec.network.pipes[1].source)
+		expect(sec.network.pipes[1].source).toBe(sec.network.pipes[0].destination)
+	})
+
+	it('should start the third pipe from the destination node of the second pipe', () => {
+		const sec = new Section({ length: 300, resolution: 100 })
+
+		expect(sec.network.pipes[2].source).toBe(sec.network.pipes[1].destination)
 	})
 
 	it('should end the last pipe with the section destination node', () => {
@@ -99,22 +139,46 @@ describe('Chain', () => {
 		expect(sec.network.pipes[sec.network.pipes.length - 1].length).toBe(50)
 	})
 
-	// it('should produce a valid network', () => {
-	// 	const sec = new Section()
+	it('should produce a valid network', () => {
+		const sec = new Section()
 
-	// 	const node = sec.source
+		expect(sec.network.validate()).toBe(true)
+	})
 
-	// 	const connections = sec.network.pipes.map((pipe) => [
-	// 		pipe.source,
-	// 		pipe.destination,
-	// 	])
+	it('should elevate intermediate pipes according to their distance through the section', () => {
+		const source = new Node({ elevation: 10 })
+		const destination = new Node({ elevation: 20 })
+		const sec = new Section({
+			name: `test`,
+			length: 20,
+			resolution: 10,
+			source: source,
+			destination: destination,
+		})
 
-	// 	// const nodeHasAConnection = connections.some((c) => c.includes(node))
+		expect(sec.network.pipes[0].destination.elevation).toBe(15)
+	})
+})
 
-	// 	// expect(nodeHasAConnection).toBe(true)
-	// 	// expect(sec.network.pipes[0].source).toBe(node)
+describe('Height', () => {
+	it('should return the elevation difference between its source and destination nodes', () => {
+		const source = new Node({ elevation: 23 })
+		const destination = new Node({ elevation: 100 })
+		const sec = new Section({ source: source, destination: destination })
 
-	// 	// expect(connections[0]).toContain(node)
-	// 	expect(sec.network.validate()).toBe(true)
-	// })
+		expect(sec.height).toBe(77)
+	})
+
+	it('should return a height of 10 for `source.elevation = 10` -> `destination.elevation = 20`', () => {
+		const source = new Node({ elevation: 10 })
+		const destination = new Node({ elevation: 20 })
+		const sec = new Section({
+			length: 20,
+			resolution: 10,
+			source: source,
+			destination: destination,
+		})
+
+		expect(sec.height).toBe(10)
+	})
 })

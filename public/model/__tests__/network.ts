@@ -145,7 +145,9 @@ describe('Validation', () => {
 
 	it('should return true if all nodes have connections', () => {
 		const net = new Network()
-		const pipe = net.addPipe()
+
+		const node = net.addNode()
+		net.addPipe({ source: node })
 
 		expect(net.validate()).toBe(true)
 	})

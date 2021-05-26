@@ -43,6 +43,44 @@ describe('Constructor', () => {
 	})
 })
 
+describe('Constructor - receiving properties', () => {
+	it('should accept a name', () => {
+		const pipe = new Pipe({ name: 'michael' })
+
+		expect(pipe.name).toBe('michael')
+	})
+
+	it('should accept a length', () => {
+		const pipe = new Pipe({ length: 1 })
+
+		expect(pipe.length).toBe(1)
+	})
+
+	it('should accept a diameter', () => {
+		const pipe = new Pipe({ diameter: 1 })
+
+		expect(pipe.diameter).toBe(1)
+	})
+
+	it('should accept a massFlow value', () => {
+		const pipe = new Pipe({ massFlow: 1 })
+
+		expect(pipe.massFlow).toBe(1)
+	})
+
+	it('should accept an endElevation value, which sets the elevation of the destination node', () => {
+		const pipe = new Pipe({ endElevation: 10 })
+
+		expect(pipe.destination.elevation).toBe(10)
+	})
+
+	it('should set the destination x position to be the source x + length', () => {
+		const pipe = new Pipe({ length: 1 })
+
+		expect(pipe.destination.x).toBe(1)
+	})
+})
+
 describe('Pressure', () => {
 	it('should have an input pressure the same as the source node', () => {
 		const node = new Node()
