@@ -104,13 +104,11 @@ describe('Pressure', () => {
 	})
 
 	it('should calculate pressure drop', () => {
-		const node = new Node({ pressure: 1 })
-		const pipe = new Pipe({ length: 200, diameter: 2 })
-		pipe.source = node
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
+		pipe.source = sourceNode
 
-		const drop = pipe.pressureDrop()
-
-		expect(drop).toBeCloseTo(0.49)
+		expect(pipe.pressure.out).toBeCloseTo(99999.97692)
 	})
 })
 
@@ -121,20 +119,20 @@ describe('Direction', () => {
 	})
 
 	it('should return true if the source pressure is greater than the destination pressure', () => {
-		const pipe = new Pipe()
-		const input = new Node({ pressure: 2 })
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
 
-		pipe.source = input
+		pipe.source = sourceNode
 
 		expect(pipe.direction).toBe(true)
 	})
 
 	it('should return false if the source pressure is less than the destination pressure', () => {
-		const pipe = new Pipe()
-		const input = new Node({ pressure: 1 })
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
 
-		pipe.source = input
-		pipe.pressure.out = 2
+		pipe.source = sourceNode
+		pipe.pressure.out = 2 * pipe.pressure.in
 
 		expect(pipe.direction).toBe(false)
 	})

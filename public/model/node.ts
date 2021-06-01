@@ -59,4 +59,22 @@ export default class Node {
 	get outflow() {
 		return this._flow.out
 	}
+
+	get density() {
+		// ρ=(Pμ)/(RT)
+		const decimalPlaces = 1
+		const μ = 0.044
+		const R = 8.31462
+		return Number(
+			((this.pressure * μ) / (R * this.temperature)).toFixed(decimalPlaces)
+		)
+	}
+
+	get viscosity() {
+		const μ0 = 0.018 // Ref viscosity
+		const T0 = 373 // Ref temperature
+		const C = 240 // Southerland constant
+		const T = this.temperature
+		return μ0 * ((T0 + C) / (T + C)) * (T / T0) ** (3 / 2)
+	}
 }

@@ -27,7 +27,7 @@ export default class Pipe {
 		this.name = props.name || 'pipe'
 		this.length = props.length || 200
 		this.diameter = props.diameter || 2
-		this.massFlow = props.massFlow || 0
+		this.massFlow = props.massFlow || 1
 		this.pressure = {
 			in: 0,
 			out: 0,
@@ -52,16 +52,16 @@ export default class Pipe {
 		// if (props.destination) this.destination = props.destination
 	}
 
-	pressureDrop(): number {
+	destinationPressure(): number {
 		const P1 = this.pressure.in
-		const viscosity = 1 // fluid property
+		const viscosity = this.source.viscosity // fluid property
 		const L = this.length
-		const Q = 1 // volumetric flow rate
 		const A = 0.25 * Math.PI * this.diameter ** 2
 		const d = this.diameter * 1000 // mm
 		const z = this.destination.elevation - this.source.elevation
 		const g = 9.81
-		const density = 1
+		const density = this.source.density
+		const Q = this.massFlow / density // volumetric flow rate
 
 		return P1 - (32000 * (viscosity * L * Q)) / (A * d ** 2) - z * g * density
 	}
@@ -69,7 +69,7 @@ export default class Pipe {
 	set source(n: Node) {
 		this._source = n
 		this.pressure.in = n.pressure
-		this.pressure.out = this.pressure.in - this.pressureDrop()
+		this.pressure.out = this.destinationPressure()
 	}
 
 	get source() {
