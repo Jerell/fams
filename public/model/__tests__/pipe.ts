@@ -110,6 +110,64 @@ describe('Pressure', () => {
 
 		expect(pipe.pressure.out).toBeCloseTo(99999.97692)
 	})
+
+	it('should set the pressure of the destination node to the calculated value', () => {
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
+		pipe.source = sourceNode
+
+		expect(pipe.destination.pressure).toBeCloseTo(99999.97692)
+	})
+})
+
+describe('Pressure continuity', () => {
+	it('should return true if `pressure.out === destination.pressure`', () => {
+		const nodeA = new Node({ pressure: 100000, temperature: 220 })
+		const pipe1 = new Pipe({
+			length: 200,
+			diameter: 2,
+			massFlow: 10,
+		})
+		pipe1.source = nodeA
+
+		const nodeB = new Node({ pressure: 100000, temperature: 220 })
+		const pipe2 = new Pipe({
+			length: 200,
+			diameter: 1,
+			massFlow: 10,
+		})
+		pipe2.source = nodeB
+
+		const dest = new Node({ pressure: 100000, temperature: 220 })
+		pipe1.destination = dest
+		pipe2.destination = dest
+
+		expect(pipe2.pressureContinuity).toBe(true)
+	})
+
+	it('should return false if `pressure.out !== destination.pressure`', () => {
+		const nodeA = new Node({ pressure: 100000, temperature: 220 })
+		const pipe1 = new Pipe({
+			length: 200,
+			diameter: 2,
+			massFlow: 10,
+		})
+		pipe1.source = nodeA
+
+		const nodeB = new Node({ pressure: 100000, temperature: 220 })
+		const pipe2 = new Pipe({
+			length: 200,
+			diameter: 1,
+			massFlow: 10,
+		})
+		pipe2.source = nodeB
+
+		const dest = new Node({ pressure: 100000, temperature: 220 })
+		pipe1.destination = dest
+		pipe2.destination = dest
+
+		expect(pipe1.pressureContinuity).toBe(false)
+	})
 })
 
 describe('Direction', () => {

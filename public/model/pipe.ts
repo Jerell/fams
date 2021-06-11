@@ -70,6 +70,7 @@ export default class Pipe {
 		this._source = n
 		this.pressure.in = n.pressure
 		this.pressure.out = this.destinationPressure()
+		this.destination.pressure = Math.min(this.pressure.out, n.pressure)
 	}
 
 	get source() {
@@ -90,5 +91,9 @@ export default class Pipe {
 		if (this.pressure.in > this.pressure.out) return true
 		else if (this.pressure.in < this.pressure.out) return false
 		return null
+	}
+
+	get pressureContinuity() {
+		return this.destination.pressure === this.pressure.out
 	}
 }
