@@ -96,7 +96,7 @@ const NetworkMap = (props: { network: Network }) => {
 		<>
 			<div className='network relative overflow-hidden w-full h-full mb-6'>
 				<h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-					Network Map
+					Network Map: {network.name}
 				</h2>
 				<svg ref={svg}></svg>
 				<h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
@@ -111,7 +111,9 @@ const NetworkMap = (props: { network: Network }) => {
 				<p className='mt-2 italic'>pipes</p>
 				<ul className='list-disc'>
 					{network.pipes.map((p, i) => (
-						<li key={i}>{`${p.source.name} → ${p.destination.name}`}</li>
+						<li
+							key={i}
+						>{`${p.name}: ${p.source.name} → ${p.destination.name}`}</li>
 					))}
 				</ul>
 			</div>
