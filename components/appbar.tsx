@@ -10,7 +10,7 @@ const Appbar = () => {
 	const router = useRouter()
 
 	return (
-		<div className='pt-safe w-full bg-gray-900 fixed top-0'>
+		<div className='pt-safe w-full bg-gray-900 fixed top-0 z-20'>
 			<header className='bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800'>
 				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
 					<Link href='/'>
