@@ -9,6 +9,10 @@ interface INetwork {
 	pipes?: Pipe[]
 }
 
+interface INetworkPipe extends IPipe {
+	ignoreDestination?: boolean
+}
+
 export default class Network {
 	name: string
 	nodes: Node[]
@@ -28,14 +32,14 @@ export default class Network {
 		return n
 	}
 
-	addPipe(props: IPipe = {}) {
+	addPipe(props: INetworkPipe = {}) {
 		const name = props.name || `${this.name}-P${this.pipes.length}`
 		props.name = name
 		if (!props.source && this.nodes.length)
 			props.source = this.nodes[this.nodes.length - 1]
 		const p = new Pipe(props)
 		this.pipes.push(p)
-		if (!this.nodes.includes(p.destination)) {
+		if (!props.ignoreDestination && !this.nodes.includes(p.destination)) {
 			this.nodes.push(p.destination)
 		}
 		return p

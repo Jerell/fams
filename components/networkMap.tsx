@@ -30,10 +30,16 @@ const NetworkMap = (props: { network: Network }) => {
 		}
 
 		const nodes = network.nodes
-		const links = network.pipes.map((pipe) => ({
-			source: nodePos(pipe.source, network),
-			target: nodePos(pipe.destination, network),
-		}))
+		const links = network.pipes.map((pipe) => {
+			console.log(pipe, pipe.destinationPressure())
+			return {
+				source: nodePos(pipe.source, network),
+				target: nodePos(pipe.destination, network),
+				cont: pipe.pressureContinuity,
+			}
+		})
+
+		console.log(links)
 
 		const svg = select(svgRef.current)
 			.attr('width', settings.width)
@@ -45,7 +51,6 @@ const NetworkMap = (props: { network: Network }) => {
 		function updateNodes() {
 			// Position
 			node.attr('transform', (d) => {
-				console.log(d, d.x, d.y)
 				return `translate(${d.x}, ${d.y})`
 			})
 
@@ -62,12 +67,11 @@ const NetworkMap = (props: { network: Network }) => {
 
 		function updateLinks() {
 			link
-
 				.attr('x1', (d) => d.source.x)
 				.attr('y1', (d) => d.source.y)
 				.attr('x2', (d) => d.target.x)
 				.attr('y2', (d) => d.target.y)
-				.style('stroke', '#86EFAC')
+				.style('stroke', (d) => (d.cont ? '#86EFAC' : 'red'))
 				.attr('class', networkStyles.path)
 				.attr('stroke-width', settings.pipe.lineThickness)
 		}
