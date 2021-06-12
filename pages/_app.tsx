@@ -7,7 +7,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 	return (
 		<ThemeProvider
 			attribute='class'
-			defaultTheme='light'
+			forcedTheme='light'
 			disableTransitionOnChange
 		>
 			<Meta />
