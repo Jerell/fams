@@ -35,7 +35,9 @@ export default class Network {
 			props.source = this.nodes[this.nodes.length - 1]
 		const p = new Pipe(props)
 		this.pipes.push(p)
-		this.nodes.push(p.destination)
+		if (!this.nodes.includes(p.destination)) {
+			this.nodes.push(p.destination)
+		}
 		return p
 	}
 
