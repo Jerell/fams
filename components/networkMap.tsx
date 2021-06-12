@@ -4,12 +4,10 @@ import {
 	forceManyBody,
 	forceCenter,
 	forceLink,
-	forceX,
-	forceY,
-	forceCollide,
 } from 'd3-force'
 import { select } from 'd3-selection'
 import Network from '@/public/model/network'
+import networkStyles from '../styles/network.module.css'
 
 const NetworkMap = (props: { network: Network }) => {
 	const svg = useRef<SVGSVGElement>(null)
@@ -27,7 +25,7 @@ const NetworkMap = (props: { network: Network }) => {
 			},
 			pipe: {
 				color: '#0D9488',
-				lineThickness: 3,
+				lineThickness: 5,
 			},
 		}
 
@@ -41,6 +39,7 @@ const NetworkMap = (props: { network: Network }) => {
 			.attr('width', settings.width)
 			.attr('height', settings.height)
 
+		const link = svg.selectAll('line').data(links).join('line')
 		const node = svg.selectAll('g').data(nodes).enter().append('g')
 
 		function updateNodes() {
@@ -62,15 +61,15 @@ const NetworkMap = (props: { network: Network }) => {
 		}
 
 		function updateLinks() {
-			const u = svg
-				.selectAll('line')
-				.data(links)
-				.join('line')
+			link
+
 				.attr('x1', (d) => d.source.x)
 				.attr('y1', (d) => d.source.y)
 				.attr('x2', (d) => d.target.x)
 				.attr('y2', (d) => d.target.y)
-				.style('stroke', 'red')
+				.style('stroke', '#86EFAC')
+				.attr('class', networkStyles.path)
+				.attr('stroke-width', settings.pipe.lineThickness)
 		}
 
 		function ticked() {
