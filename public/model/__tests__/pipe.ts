@@ -1,5 +1,6 @@
 import Pipe from '../pipe'
 import Node from '../node'
+import Valve from '../valve'
 
 describe('Constructor', () => {
 	it('should have a name', () => {
@@ -193,5 +194,96 @@ describe('Direction', () => {
 		pipe.pressure.out = 2 * pipe.pressure.in
 
 		expect(pipe.direction).toBe(false)
+	})
+})
+
+describe('Valve', () => {
+	it('should return false by default', () => {
+		const pipe = new Pipe()
+
+		expect(pipe.valve).toBe(false)
+	})
+
+	it('addValve should throw an error when given zero pressure', () => {
+		const pipe = new Pipe()
+
+		expect(() => pipe.addValve()).toThrow('Invalid')
+	})
+
+	it('should create a valve when addValve is called on a pipe with a non-zero out pressure', () => {
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
+		pipe.source = sourceNode
+
+		pipe.addValve()
+
+		expect(pipe.valve).toBeInstanceOf(Valve)
+	})
+
+	it('should reset to false when removeValve is called', () => {
+		const sourceNode = new Node({ pressure: 100000, temperature: 220 })
+		const pipe = new Pipe({ length: 200, diameter: 2, massFlow: 10 })
+		pipe.source = sourceNode
+
+		pipe.addValve()
+		pipe.removeValve()
+
+		expect(pipe.valve).toBe(false)
+	})
+
+	it('should be named after the pipe', () => {
+		const sourceNode = new Node({
+			pressure: 100000,
+			temperature: 220,
+		})
+		const pipe = new Pipe({
+			name: 'testpipe',
+			length: 200,
+			diameter: 2,
+			massFlow: 10,
+		})
+		pipe.source = sourceNode
+
+		pipe.addValve()
+
+		expect((pipe.valve as Valve).name).toBe('testpipe-valve')
+	})
+
+	it('should have `pressure.in` equal to the `pressure.out` of the pipe', () => {
+		const sourceNode = new Node({
+			pressure: 100000,
+			temperature: 220,
+		})
+		const pipe = new Pipe({
+			name: 'testpipe',
+			length: 200,
+			diameter: 2,
+			massFlow: 10,
+		})
+		pipe.source = sourceNode
+
+		pipe.addValve()
+
+		expect((pipe.valve as Valve).pressure.in).toEqual(pipe.pressure.out)
+	})
+
+	it('should have `pressure.out` equal to the `pressure` of the destination node', () => {
+		const sourceNode = new Node({
+			pressure: 100000,
+			temperature: 220,
+		})
+		const pipe = new Pipe({
+			name: 'testpipe',
+			length: 200,
+			diameter: 2,
+			massFlow: 10,
+		})
+		pipe.source = sourceNode
+
+		pipe.addValve()
+
+		expect((pipe.valve as Valve).pressure.out).toEqual(
+			pipe.destination.pressure
+		)
 	})
 })

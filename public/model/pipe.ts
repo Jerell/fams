@@ -1,4 +1,5 @@
 import Node from './node'
+import Valve from './valve'
 
 export interface IPipe {
 	name?: string
@@ -22,6 +23,7 @@ export default class Pipe {
 	}
 	private _source: Node
 	private _destination: Node
+	private _valve: Valve | false
 
 	constructor(props: IPipe = {}) {
 		this.name = props.name || 'pipe'
@@ -48,8 +50,7 @@ export default class Pipe {
 			if (props.endElevation) this.destination.elevation = props.endElevation
 		}
 
-		// if (props.source) this.source = props.source
-		// if (props.destination) this.destination = props.destination
+		this._valve = false
 	}
 
 	destinationPressure(): number {
@@ -95,5 +96,20 @@ export default class Pipe {
 
 	get pressureContinuity() {
 		return this.destination.pressure === this.pressure.out
+	}
+
+	get valve() {
+		return this._valve
+	}
+
+	addValve() {
+		this._valve = new Valve({
+			name: `${this.name}-valve`,
+			pressure: { in: this.pressure.out, out: this.destination.pressure },
+		})
+	}
+
+	removeValve() {
+		this._valve = false
 	}
 }
