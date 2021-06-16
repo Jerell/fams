@@ -31,15 +31,12 @@ const NetworkMap = (props: { network: Network }) => {
 
 		const nodes = network.nodes
 		const links = network.pipes.map((pipe) => {
-			console.log(pipe, pipe.destinationPressure())
 			return {
 				source: nodePos(pipe.source, network),
 				target: nodePos(pipe.destination, network),
 				cont: pipe.pressureContinuity,
 			}
 		})
-
-		console.log(links)
 
 		const svg = select(svgRef.current)
 			.attr('width', settings.width)
@@ -111,9 +108,9 @@ const NetworkMap = (props: { network: Network }) => {
 				<p className='mt-2 italic'>pipes</p>
 				<ul className='list-disc'>
 					{network.pipes.map((p, i) => (
-						<li
-							key={i}
-						>{`${p.name}: ${p.source.name} → ${p.destination.name}`}</li>
+						<li key={i}>{`${p.name}: ${p.source.name} → ${p.destination.name} ${
+							p.valve ? '(has valve)' : ''
+						}`}</li>
 					))}
 				</ul>
 			</div>
