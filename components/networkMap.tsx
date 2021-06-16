@@ -26,6 +26,9 @@ const NetworkMap = (props: { network: Network }) => {
 			pipe: {
 				color: '#0D9488',
 				lineThickness: 5,
+				valve: {
+					color: '#0d4c94',
+				},
 			},
 		}
 
@@ -34,6 +37,7 @@ const NetworkMap = (props: { network: Network }) => {
 			return {
 				source: nodePos(pipe.source, network),
 				target: nodePos(pipe.destination, network),
+				valve: pipe.valve,
 				cont: pipe.pressureContinuity,
 			}
 		})
@@ -42,28 +46,64 @@ const NetworkMap = (props: { network: Network }) => {
 			.attr('width', settings.width)
 			.attr('height', settings.height)
 
-		const link = svg.selectAll('line').data(links).join('line')
-		const node = svg.selectAll('g').data(nodes).enter().append('g')
+		// LINKS
+
+		const link = svg
+			.selectAll('g')
+			.filter('.link')
+			.data(links)
+			.join('g')
+			.attr('class', (d) => (d.valve ? 'link valve' : 'link'))
+		// Line
+		const line = link
+			.append('line')
+			.attr('x1', (d) => d.source.x)
+			.attr('y1', (d) => d.source.y)
+			.attr('x2', (d) => d.target.x)
+			.attr('y2', (d) => d.target.y)
+			.style('stroke', (d) => (d.cont ? settings.pipe.color : 'red'))
+			.attr('class', networkStyles.path)
+			.attr('stroke-width', settings.pipe.lineThickness)
+		// Valve
+		const valve = link
+			.filter((p) => p.valve)
+			.append('circle')
+			.attr('r', settings.node.radius)
+			.attr('class', 'valve')
+			.attr('cx', (p) => (p.source.x + p.target.x) / 2)
+			.attr('cy', (p) => (p.source.y + p.target.y) / 2)
+			.style('fill', settings.pipe.valve.color)
+		console.log(valve)
+
+		// END LINKS
+
+		// NODES
+
+		const node = svg
+			.selectAll('g')
+			.filter('.node')
+			.data(nodes)
+			.join('g')
+			.attr('class', 'node')
+		// Point
+		node.append('circle').attr('r', settings.node.radius)
+		// Text
+		node
+			.append('text')
+			.attr('font-size', settings.node.radius + 8)
+			.attr('dx', settings.node.radius * 1.5)
+			.text((d) => d.name)
+		// END NODES
 
 		function updateNodes() {
 			// Position
 			node.attr('transform', (d) => {
 				return `translate(${d.x}, ${d.y})`
 			})
-
-			// Point
-			node.append('circle').attr('r', settings.node.radius)
-
-			// Text
-			node
-				.append('text')
-				.attr('font-size', settings.node.radius + 8)
-				.attr('dx', settings.node.radius * 1.5)
-				.text((d) => d.name)
 		}
 
 		function updateLinks() {
-			link
+			line
 				.attr('x1', (d) => d.source.x)
 				.attr('y1', (d) => d.source.y)
 				.attr('x2', (d) => d.target.x)
@@ -71,6 +111,20 @@ const NetworkMap = (props: { network: Network }) => {
 				.style('stroke', (d) => (d.cont ? '#86EFAC' : 'red'))
 				.attr('class', networkStyles.path)
 				.attr('stroke-width', settings.pipe.lineThickness)
+
+			const valveDestPosWeight = 0.85
+			const valveSourcePosWeight = 1 - valveDestPosWeight
+			valve
+				.attr(
+					'cx',
+					(p) =>
+						valveSourcePosWeight * p.source.x + valveDestPosWeight * p.target.x
+				)
+				.attr(
+					'cy',
+					(p) =>
+						valveSourcePosWeight * p.source.y + valveDestPosWeight * p.target.y
+				)
 		}
 
 		function ticked() {
