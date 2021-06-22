@@ -128,15 +128,28 @@ describe('Data grouping', () => {
 describe('selectRow', () => {
 	it('should call `this.load` if `this.data` is empty', async () => {
 		const eos = new EOS()
-		eos.load = jest.fn()
+		eos.load = jest.fn(eos.load)
 
-		await eos.selectRow(1, 1)
+		await eos.selectRow(1000, 10)
 
 		expect(eos.load).toHaveBeenCalled()
 	})
 
-	// it('should return a single row', async () => {
-	// 	const eos = new EOS()
-	// 	eos.load()
-	// })
+	it('should return the correct row (1/2)', async () => {
+		const eos = await new EOS().load()
+		const row = { HG: '-12561.645', PT: '1000.00000', TM: '10.0671141' }
+
+		const selection = await eos.selectRow(1000, 10)
+
+		expect(selection).toMatchObject(row)
+	})
+
+	it('should return the correct row (1/2)', async () => {
+		const eos = await new EOS().load()
+		const row = { HG: '-8370.3307', PT: '1000.00000', TM: '15.0838926' }
+
+		const selection = await eos.selectRow(1000, 15)
+
+		expect(selection).toMatchObject(row)
+	})
 })

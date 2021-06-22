@@ -54,17 +54,24 @@ export default class EOS {
 		return Array.from(this.unique.pressure) as number[]
 	}
 
-	async selectPressure(p_out) {
-		if (!this.data.length) this.load()
+	async selectPressure(pressure: number) {
+		if (!this.data.length) await this.load()
 
-		const idx = binarySearch(this.uniquePressures, p_out)
+		const idx = binarySearch(this.uniquePressures, pressure)
 
 		return this.uniquePressures[idx]
 	}
 
-	async selectRow(pressure: number, temperature: number) {
-		if (!this.data.length) this.load()
+	async selectRow(PT: number, TM: number) {
+		if (!this.data.length) await this.load()
 
-		return
+		const pressure = await this.selectPressure(PT)
+
+		const rows = this.dataGroupedByPressure[pressure]
+		const temps = rows.map((r) => r.TM)
+
+		const temp_idx = binarySearch(temps, TM)
+
+		return rows[temp_idx]
 	}
 }
