@@ -171,3 +171,13 @@ describe('selectRow', () => {
 		expect(selection).toMatchObject(row)
 	})
 })
+
+describe('getOutTemp', () => {
+	it('should return the correct out temperature', async () => {
+		const eos = await new EOS().load()
+
+		const out_temp = await eos.getOutTemp(47976.5101, 50, 1000)
+
+		expect(out_temp).toEqual(49.5469799)
+	})
+})

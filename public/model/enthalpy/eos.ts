@@ -85,6 +85,18 @@ export default class EOS {
 			return {}
 		}
 	}
+
+	async getOutTemp(p_in: number, t_in: number, p_out: number) {
+		if (!this.data.length) await this.load()
+
+		const inrow = await this.selectRow({ PT: p_in, TM: t_in })
+		const h = inrow.HG
+
+		const outrow = await this.selectRow({ PT: p_out, HG: h })
+		const t_out = Number(outrow.TM)
+
+		return t_out
+	}
 }
 
 interface IRow {
