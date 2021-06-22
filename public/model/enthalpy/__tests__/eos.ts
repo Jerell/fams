@@ -144,7 +144,7 @@ describe('selectRow', () => {
 		expect(selection).toMatchObject(row)
 	})
 
-	it('should return the correct row (1/2)', async () => {
+	it('should return the correct row (2/2)', async () => {
 		const eos = await new EOS().load()
 		const row = { HG: '-8370.3307', PT: '1000.00000', TM: '15.0838926' }
 
