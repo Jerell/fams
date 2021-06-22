@@ -130,25 +130,43 @@ describe('selectRow', () => {
 		const eos = new EOS()
 		eos.load = jest.fn(eos.load)
 
-		await eos.selectRow(1000, 10)
+		await eos.selectRow({ PT: 1000, TM: 10 })
 
 		expect(eos.load).toHaveBeenCalled()
 	})
 
-	it('should return the correct row (1/2)', async () => {
+	it('should return the correct row when given PT and TM (1/2)', async () => {
 		const eos = await new EOS().load()
 		const row = { HG: '-12561.645', PT: '1000.00000', TM: '10.0671141' }
 
-		const selection = await eos.selectRow(1000, 10)
+		const selection = await eos.selectRow({ PT: 1000, TM: 10 })
 
 		expect(selection).toMatchObject(row)
 	})
 
-	it('should return the correct row (2/2)', async () => {
+	it('should return the correct row when given PT and TM (2/2)', async () => {
 		const eos = await new EOS().load()
 		const row = { HG: '-8370.3307', PT: '1000.00000', TM: '15.0838926' }
 
-		const selection = await eos.selectRow(1000, 15)
+		const selection = await eos.selectRow({ PT: 1000, TM: 15 })
+
+		expect(selection).toMatchObject(row)
+	})
+
+	it('should return the correct row when given PT and HG (1/2)', async () => {
+		const eos = await new EOS().load()
+		const row = { HG: '-12561.645', PT: '1000.00000', TM: '10.0671141' }
+
+		const selection = await eos.selectRow({ PT: 1000, HG: -12561 })
+
+		expect(selection).toMatchObject(row)
+	})
+
+	it('should return the correct row when given PT and HG (2/2)', async () => {
+		const eos = await new EOS().load()
+		const row = { HG: '-8370.3307', PT: '1000.00000', TM: '15.0838926' }
+
+		const selection = await eos.selectRow({ PT: 1000, HG: -8370 })
 
 		expect(selection).toMatchObject(row)
 	})

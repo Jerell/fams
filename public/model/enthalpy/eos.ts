@@ -62,16 +62,46 @@ export default class EOS {
 		return this.uniquePressures[idx]
 	}
 
-	async selectRow(PT: number, TM: number) {
+	// async selectRow(PT: number, TM: number) {
+	// 	if (!this.data.length) await this.load()
+
+	// 	const pressure = await this.selectPressure(PT)
+
+	// 	const rows = this.dataGroupedByPressure[pressure]
+	// 	const temps = rows.map((r) => r.TM)
+
+	// 	const temp_idx = binarySearch(temps, TM)
+
+	// 	return rows[temp_idx]
+	// }
+
+	async selectRow(props: IRow = { PT: 0 }) {
 		if (!this.data.length) await this.load()
 
-		const pressure = await this.selectPressure(PT)
+		const pressure = await this.selectPressure(props.PT)
 
-		const rows = this.dataGroupedByPressure[pressure]
-		const temps = rows.map((r) => r.TM)
+		if (props.TM) {
+			const rows = this.dataGroupedByPressure[pressure]
+			const temps = rows.map((r) => r.TM)
 
-		const temp_idx = binarySearch(temps, TM)
+			const temp_idx = binarySearch(temps, props.TM)
 
-		return rows[temp_idx]
+			return rows[temp_idx]
+		} else if (props.HG) {
+			const rows = this.dataGroupedByPressure[pressure]
+			const enths = rows.map((r) => r.HG)
+
+			const enth_idx = binarySearch(enths, props.HG)
+
+			return rows[enth_idx]
+		} else {
+			return {}
+		}
 	}
+}
+
+interface IRow {
+	PT: number
+	TM?: number
+	HG?: number
 }
