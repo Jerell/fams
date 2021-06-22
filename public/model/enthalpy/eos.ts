@@ -7,16 +7,25 @@ export default class EOS {
 	unique: {
 		pressure: Set<Number>
 	}
+	dataGroupedByPressure: object
+
 	constructor() {
 		this.data = []
 		this.unique = {
 			pressure: new Set(),
 		}
+		this.dataGroupedByPressure = {}
 	}
 
 	async load() {
-		const logUniquePressure = (row) => {
+		const logRowPressure = (row) => {
 			this.unique.pressure.add(Number(row.PT))
+
+			// Group
+			const pString = Number(row.PT).toString()
+			if (!this.dataGroupedByPressure[pString])
+				this.dataGroupedByPressure[pString] = []
+			this.dataGroupedByPressure[pString].push(row)
 		}
 
 		function readData() {
@@ -29,7 +38,7 @@ export default class EOS {
 					.pipe(csv())
 					.on('data', (row) => {
 						data.push(row)
-						logUniquePressure(row)
+						logRowPressure(row)
 					})
 					.on('end', () => {
 						resolve(data)
@@ -38,6 +47,7 @@ export default class EOS {
 		}
 
 		this.data = (await readData()) as Object[]
+		return this
 	}
 
 	get uniquePressures() {
@@ -50,5 +60,11 @@ export default class EOS {
 		const idx = binarySearch(this.uniquePressures, p_out)
 
 		return this.uniquePressures[idx]
+	}
+
+	async selectRow(pressure: number, temperature: number) {
+		if (!this.data.length) this.load()
+
+		return
 	}
 }

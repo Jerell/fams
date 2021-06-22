@@ -10,8 +10,7 @@ describe('Constructor - initial properties', () => {
 
 describe('Load', () => {
 	it('should load data from file when load is called', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const firstRow = {
 			HG: '-29062.109',
@@ -23,8 +22,7 @@ describe('Load', () => {
 	})
 
 	it('should record the first unique pressure value in the unique log', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const pressures = eos.unique.pressure.values()
 
@@ -32,8 +30,7 @@ describe('Load', () => {
 	})
 
 	it('should record the second unique pressure value in the unique log', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const pressures = eos.unique.pressure.values()
 		pressures.next()
@@ -42,8 +39,7 @@ describe('Load', () => {
 	})
 
 	it('should record 299 unique pressure values for the given csv (pth.csv)', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		expect(eos.unique.pressure.size).toBe(299)
 	})
@@ -57,8 +53,7 @@ describe('get uniquePressures', () => {
 	})
 
 	it('should contain values from `this.unique.pressure` (first)', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const first = eos.uniquePressures[0]
 
@@ -66,8 +61,7 @@ describe('get uniquePressures', () => {
 	})
 
 	it('should contain values from `this.unique.pressure` (last)', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const last = eos.uniquePressures[eos.uniquePressures.length - 1]
 
@@ -86,8 +80,7 @@ describe('selectPressure', () => {
 	})
 
 	it('should return 1000 for `p_out=1000', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const p_out = 1000
 		const p = await eos.selectPressure(p_out)
@@ -96,8 +89,7 @@ describe('selectPressure', () => {
 	})
 
 	it('should return 1000 for `p_out=10000', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const p_out = 10000
 		const p = await eos.selectPressure(p_out)
@@ -106,12 +98,45 @@ describe('selectPressure', () => {
 	})
 
 	it('should return 47976.5101 for `p_out=50000', async () => {
-		const eos = new EOS()
-		await eos.load()
+		const eos = await new EOS().load()
 
 		const p_out = 50000
 		const p = await eos.selectPressure(p_out)
 
 		expect(p).toEqual(47976.5101)
 	})
+})
+
+describe('Data grouping', () => {
+	it('should create a group for the first pressure value', async () => {
+		const eos = new EOS()
+		await eos.load()
+
+		const groupKey = eos.uniquePressures[0]
+
+		expect(eos.dataGroupedByPressure).toHaveProperty(groupKey.toString())
+	})
+
+	it('should create a group for the second pressure value', async () => {
+		const eos = new EOS()
+		await eos.load()
+
+		expect(eos.dataGroupedByPressure['47976.5101']).not.toBeUndefined() // Not sure why it had to be tested this way
+	})
+})
+
+describe('selectRow', () => {
+	it('should call `this.load` if `this.data` is empty', async () => {
+		const eos = new EOS()
+		eos.load = jest.fn()
+
+		await eos.selectRow(1, 1)
+
+		expect(eos.load).toHaveBeenCalled()
+	})
+
+	// it('should return a single row', async () => {
+	// 	const eos = new EOS()
+	// 	eos.load()
+	// })
 })
