@@ -62,19 +62,6 @@ export default class EOS {
 		return this.uniquePressures[idx]
 	}
 
-	// async selectRow(PT: number, TM: number) {
-	// 	if (!this.data.length) await this.load()
-
-	// 	const pressure = await this.selectPressure(PT)
-
-	// 	const rows = this.dataGroupedByPressure[pressure]
-	// 	const temps = rows.map((r) => r.TM)
-
-	// 	const temp_idx = binarySearch(temps, TM)
-
-	// 	return rows[temp_idx]
-	// }
-
 	async selectRow(props: IRow = { PT: 0 }) {
 		if (!this.data.length) await this.load()
 
