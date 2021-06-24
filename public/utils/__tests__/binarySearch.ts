@@ -108,4 +108,11 @@ describe('Outside range', () => {
 
 		expect(() => binarySearch(list, item)).toThrow('too high')
 	})
+
+	it('should throw an error when the value is too low', () => {
+		const list = [1, 2, 3, 4, 5]
+		const item = 0
+
+		expect(() => binarySearch(list, item)).toThrow('too low')
+	})
 })
