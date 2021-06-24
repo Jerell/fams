@@ -1,7 +1,7 @@
 import binarySearch from '../binarySearch'
 
 describe('Search `list=[1, 2, 3, 4, 5]`', () => {
-	it('should return 0a for `item = 1`', () => {
+	it('should return 0 for `item = 1`', () => {
 		const list = [1, 2, 3, 4, 5]
 		const item = 1
 
@@ -62,14 +62,14 @@ describe('Search pressures', () => {
 		expect(binarySearch(pressures, item)).toEqual(1)
 	})
 
-	it('Should return 0 for `item = 5 (concata)', () => {
+	it('Should return 0 for `item = 5 (concat)', () => {
 		const pressures = [1, 47, 94, 141, 188, 235, 282, 329, 376]
 		const item = 5
 
 		expect(binarySearch(pressures, item)).toEqual(0)
 	})
 
-	it('Should return 0 for `item = 1 (concatb)', () => {
+	it('Should return 0 for `item = 1 (concat)', () => {
 		const pressures = [1, 47, 94, 141, 188, 235, 282, 329, 376]
 		const item = 1
 
