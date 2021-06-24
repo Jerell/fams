@@ -10,6 +10,7 @@ export interface IPipeSegment {
 	destination?: Node
 	x?: number
 	endElevation?: number
+	roughness?: number
 }
 
 export default class PipeSegment {
@@ -24,6 +25,7 @@ export default class PipeSegment {
 	private _source: Node
 	private _destination: Node
 	private _valve: Valve | false
+	roughness: number
 
 	constructor(props: IPipeSegment = {}) {
 		this.name = props.name || 'pipeseg'
@@ -34,6 +36,8 @@ export default class PipeSegment {
 			in: 0,
 			out: 0,
 		}
+
+		this.roughness = props.roughness || 0
 
 		this._source =
 			props.source || new Node({ name: `${this.name}S`, x: props.x })
