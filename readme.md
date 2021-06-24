@@ -1,48 +1,32 @@
 <p align="center">
-	<img alt="Rice Bowl" src="public/images/logo-512.png" width="90">
-	<h2 align="center">Next PWA Template</h2>
+	<img alt="Pace" src="public/images/logo-512.png" width="90">
+	<h2 align="center">Digital Twin</h2>
 </p>
 
-<p align="center">Fluffless app template to inspire less</p>
+<p align="center">A TypeScript web application for modelling pipeline networks</p>
 
 <p align="center">
-	<a href="https://fams.vercel.app/">Live demo</a>
+	<a href="https://fams.vercel.app/">Application</a>
 </p>
 
 <p align="center">
-	<a href="https://web.dev/measure">
-		<img alt="100% lighthouse scores" src="https://img.shields.io/badge/lighthouse-100%25-845EF7.svg?logo=lighthouse&logoColor=white&style=flat-square" />
-	</a>
-	<a href="https://github.com/xojs/xo">
-		<img alt="XO code style" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square" />
-	</a>
+	<a href="https://fams-docs.vercel.app/">Documentation</a>
 </p>
 
-## Features
+## Overview
 
-- ✨ Fluffless PWA using Next 10
-- 🌗 Lovely night/day themes
-- 🦄 Easily removable [nice-to-haves](#use-only-what-you-need)
-- 📱 Native-like mobile experience
-- 📦 Neatly wrapped like that avocado you got for christmas
+The model has a range of different entities that work together to simulate the functionality of the pipe system.
 
-**The essentials**
+The most essential of these entities are nodes and pipes:
 
-- Typescript, made easy with Next.js
-- [tailwindcss](https://github.com/tailwindlabs/tailwindcss) for utility-first styling
-- [next-pwa](https://github.com/shadowwalker/next-pwa) for offline support
+- [**Nodes**](https://fams-docs.vercel.app/docs/model/Node) are the points at the start and end of each pipe. They have input and output properties that can be specified or calculated.
 
-**Nice to haves**
+- [**Pipes**](https://fams-docs.vercel.app/docs/model/Pipe) are connections between nodes.
 
-- [next-themes](https://github.com/pacocoursey/next-themes) or similar for low stress theming
-- [XO](https://github.com/xojs/xo) for opinionated eslint + prettier
+## Aim
 
-## Gallery
+Given a set of starting conditions, the model should calculate the behaviour of fluid within the system.
 
-### Desktop
+A user interface will be used to set up a pipeline network and begin a simulation.
 
-<img alt="" src="public/images/macos.png" width="500" />
-
-### Mobile
-
-<img alt="" src="public/images/ios.png" width="500" />
+Data should be presented in easily readable graphs and visualizations that can be understood by laymen.
