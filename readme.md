@@ -23,7 +23,7 @@ The most essential of these entities are nodes and pipes:
 
 - [**Pipes**](https://fams-docs.vercel.app/docs/model/Pipe) are connections between nodes.
 
-## Aim
+## Aims
 
 Given a set of starting conditions, the model should calculate the behaviour of fluid within the system.
 
