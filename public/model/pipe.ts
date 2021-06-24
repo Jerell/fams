@@ -20,7 +20,7 @@ export default class Pipe {
 	cosine: number
 
 	constructor(props: IPipe = {}) {
-		this.name = props.name || 'section'
+		this.name = props.name || 'pipe'
 		this.resolution = props.resolution || 200
 		this.length = props.length || 200
 		this._source = new Node({ name: `${this.name}-source` })

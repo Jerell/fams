@@ -26,7 +26,7 @@ export default class PipeSegment {
 	private _valve: Valve | false
 
 	constructor(props: IPipeSegment = {}) {
-		this.name = props.name || 'pipe'
+		this.name = props.name || 'pipeseg'
 		this.length = props.length || 200
 		this.diameter = props.diameter || 2
 		this.massFlow = props.massFlow || 1
