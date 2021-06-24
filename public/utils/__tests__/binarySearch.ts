@@ -100,3 +100,12 @@ describe('Search pressures', () => {
 		expect(binarySearch(pressures, item)).toEqual(1)
 	})
 })
+
+describe('Outside range', () => {
+	it('should throw an error when the value is too high', () => {
+		const list = [1, 2, 3, 4, 5]
+		const item = 6
+
+		expect(() => binarySearch(list, item)).toThrow('too high')
+	})
+})

@@ -1,4 +1,12 @@
 export default function binarySearch(list: number[], item) {
+	if (item > list[list.length - 1]) {
+		throw `Invalid search value (too high): ${item} > ${list[list.length - 1]}`
+	}
+
+	if (item < list[0]) {
+		throw `Invalid search value (too low): ${item} < ${list[0]}`
+	}
+
 	let low = 0
 	let high = list.length - 1
 	let mid = 0
