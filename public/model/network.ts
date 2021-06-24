@@ -1,22 +1,22 @@
 import Node from './node'
-import Pipe from './pipe'
+import PipeSegment from './pipeSegment'
 import { INode } from './node'
-import { IPipe } from './pipe'
+import { IPipeSegment } from './pipeSegment'
 
 interface INetwork {
 	name?: string
 	nodes?: Node[]
-	pipes?: Pipe[]
+	pipes?: PipeSegment[]
 }
 
-interface INetworkPipe extends IPipe {
+interface INetworkPipeSegment extends IPipeSegment {
 	ignoreDestination?: boolean
 }
 
 export default class Network {
 	name: string
 	nodes: Node[]
-	pipes: Pipe[]
+	pipes: PipeSegment[]
 
 	constructor(props: INetwork = {}) {
 		this.name = props.name || 'network'
@@ -32,12 +32,12 @@ export default class Network {
 		return n
 	}
 
-	addPipe(props: INetworkPipe = {}) {
+	addPipe(props: INetworkPipeSegment = {}) {
 		const name = props.name || `${this.name}-P${this.pipes.length}`
 		props.name = name
 		if (!props.source && this.nodes.length)
 			props.source = this.nodes[this.nodes.length - 1]
-		const p = new Pipe(props)
+		const p = new PipeSegment(props)
 		this.pipes.push(p)
 		if (!props.ignoreDestination && !this.nodes.includes(p.destination)) {
 			this.nodes.push(p.destination)

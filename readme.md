@@ -21,7 +21,7 @@ The most essential of these entities are nodes and pipes:
 
 - [**Nodes**](https://fams-docs.vercel.app/docs/model/Node) are the points at the start and end of each pipe. They have input and output properties that can be specified or calculated.
 
-- [**Pipes**](https://fams-docs.vercel.app/docs/model/Pipe) are connections between nodes.
+- [**Pipe Segments**](https://fams-docs.vercel.app/docs/model/Pipe) are connections between nodes.
 
 ## Aims
 
