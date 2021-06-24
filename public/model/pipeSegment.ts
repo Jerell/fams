@@ -54,6 +54,10 @@ export default class PipeSegment {
 			if (props.endElevation) this.destination.elevation = props.endElevation
 		}
 
+		const xDiff = this.destination.x - this.source.x
+		const yDiff = this.destination.elevation - this.source.elevation
+		this.length = Math.sqrt(xDiff ** 2 + yDiff ** 2)
+
 		this._valve = false
 	}
 

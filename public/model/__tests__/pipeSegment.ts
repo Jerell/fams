@@ -81,7 +81,23 @@ describe('Constructor - receiving properties', () => {
 		expect(pipeSeg.destination.x).toBe(1)
 	})
 
-	it('should have a length equal to the distance between its source and destination nodes', () => {})
+	it('should have a length equal to the distance between its source and destination nodes (1/2)', () => {
+		const s = new Node()
+		const d = new Node({ x: 3, elevation: 4 })
+
+		const pipeSeg = new PipeSegment({ source: s, destination: d })
+
+		expect(pipeSeg.length).toBe(5)
+	})
+
+	it('should have a length equal to the distance between its source and destination nodes (2/2)', () => {
+		const s = new Node()
+		const d = new Node({ x: 6, elevation: 8 })
+
+		const pipeSeg = new PipeSegment({ source: s, destination: d })
+
+		expect(pipeSeg.length).toBe(10)
+	})
 })
 
 describe('Pressure', () => {
@@ -141,7 +157,7 @@ describe('Pressure continuity', () => {
 		})
 		pipeSeg2.source = nodeB
 
-		const dest = new Node({ pressure: 100000, temperature: 220 })
+		const dest = new Node({ temperature: 220 })
 		pipeSeg1.destination = dest
 		pipeSeg2.destination = dest
 
