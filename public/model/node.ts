@@ -25,7 +25,7 @@ export default class Node {
 		this.name = props.name || 'node'
 		this.x = props.x || 0
 		this.elevation = props.elevation || 0
-		this.pressure = props.pressure || 0
+		this.pressure = props.pressure || 2e6
 		this.temperature = props.temperature || 0
 		this._flow = {
 			in: 0,
