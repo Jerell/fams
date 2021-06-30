@@ -181,3 +181,13 @@ describe('getOutTemp', () => {
 		expect(out_temp).toEqual(49.5469799)
 	})
 })
+
+describe('interpolateEnthalpy', () => {
+	it('should interpolate', async () => {
+		const eos = await new EOS().load()
+
+		const interpolated = await eos.interpolateEnthalpy({ PT: 1001, TM: 1 })
+
+		expect(interpolated).toBe(-20069.93225227965)
+	})
+})
