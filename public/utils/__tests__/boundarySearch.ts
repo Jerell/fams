@@ -18,6 +18,7 @@ describe('Search `list=[1, 2, 3, 4, 5]`', () => {
 			idx: {
 				low: 0,
 				high: 1,
+				closest: 0,
 			},
 		}
 
@@ -41,6 +42,7 @@ describe('Search `list=[1, 2, 3, 4, 5]`', () => {
 			idx: {
 				low: 0,
 				high: 0,
+				closest: 0,
 			},
 		}
 

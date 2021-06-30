@@ -1,6 +1,6 @@
 import binarySearch from './binarySearch'
 
-export default function boundarySearch(list: number[], item) {
+export default function boundarySearch(list: number[], item): IBoundary {
 	const closestIdx = binarySearch(list, item)
 	const closest = list[closestIdx]
 	const isGreaterThanClosest = item > closest
@@ -29,6 +29,21 @@ export default function boundarySearch(list: number[], item) {
 		high,
 		closest,
 		weights: { low: lowWeight, high: highWeight },
-		idx: { low: lowIdx, high: highIdx },
+		idx: { low: lowIdx, high: highIdx, closest: closestIdx },
+	}
+}
+
+export interface IBoundary {
+	low: number
+	high: number
+	closest: number
+	weights: {
+		low: number
+		high: number
+	}
+	idx: {
+		low: number
+		high: number
+		closest: number
 	}
 }
