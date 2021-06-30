@@ -2,8 +2,9 @@ import binarySearch from './binarySearch'
 
 export default function boundarySearch(list: number[], item) {
 	const closestIdx = binarySearch(list, item)
-	const isGreaterThanClosest = item > list[closestIdx]
-	const isLessThanClosest = item < list[closestIdx]
+	const closest = list[closestIdx]
+	const isGreaterThanClosest = item > closest
+	const isLessThanClosest = item < closest
 
 	let neighbour = closestIdx
 
@@ -23,11 +24,10 @@ export default function boundarySearch(list: number[], item) {
 	const highWeight = (item - low) / interval
 	const lowWeight = 1 - highWeight
 
-	const average = lowWeight * low + highWeight * high
-
 	return {
 		low,
 		high,
+		closest,
 		weights: { low: lowWeight, high: highWeight },
 		idx: { low: lowIdx, high: highIdx },
 	}
