@@ -62,17 +62,24 @@ export default class PipeSegment {
 	}
 
 	destinationPressure(): number {
-		const P1 = this.pressure.in
-		const viscosity = this.source.viscosity // fluid property
-		const L = this.length
+		const w = this.massFlow
+		const D = this.diameter
 		const A = 0.25 * Math.PI * this.diameter ** 2
-		const d = this.diameter * 1000 // mm
-		const z = this.destination.elevation - this.source.elevation
-		const g = 9.81
-		const density = this.source.density
-		const Q = this.massFlow / density // volumetric flow rate
+		const ρ = this.source.density
+		const v = 1 / ρ
+		const L = this.length
+		const P1 = this.pressure.in
 
-		return P1 - (32000 * (viscosity * L * Q)) / (A * d ** 2) - z * g * density
+		// Friction factor
+		const u = w / (A * ρ)
+		const μ = this.source.viscosity
+		const Re = (ρ * u * D) / μ
+		const f = Re < 2000 ? 64 / Re : 0.094 / (D * 1000) ** (1 / 3)
+
+		return (
+			(Math.sqrt(P1) * Math.sqrt(A ** (2 * D * P1) - f * L * v * w ** 2)) /
+			(A * Math.sqrt(D))
+		)
 	}
 
 	set source(n: Node) {
