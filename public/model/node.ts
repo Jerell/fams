@@ -66,7 +66,7 @@ export default class Node {
 		const μ = 0.044
 		const R = 8.31462
 		return Number(
-			((this.pressure * μ) / (R * this.temperature)).toFixed(decimalPlaces)
+			(this.pressure * μ) / (R * this.temperature) //.toFixed(decimalPlaces)
 		)
 	}
 
