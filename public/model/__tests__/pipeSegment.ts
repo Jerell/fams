@@ -134,6 +134,30 @@ describe('Pressure', () => {
 		expect(pipeSeg.pressure.out).toBeCloseTo(61111.81128965647)
 	})
 
+	it('should calculate pressure drop (2/3)', () => {
+		const sourceNode = new Node({ pressure: 300000, temperature: 350 })
+		const pipeSeg = new PipeSegment({
+			length: 200,
+			diameter: 0.9144,
+			massFlow: 100,
+		})
+		pipeSeg.source = sourceNode
+
+		expect(pipeSeg.pressure.out).toBeCloseTo(294535.73943407804)
+	})
+
+	it('should calculate pressure drop (3/3)', () => {
+		const sourceNode = new Node({ pressure: 10000000, temperature: 300 })
+		const pipeSeg = new PipeSegment({
+			length: 200,
+			diameter: 0.9144,
+			massFlow: 200,
+		})
+		pipeSeg.source = sourceNode
+
+		expect(pipeSeg.pressure.out).toBeCloseTo(9999443.064800411)
+	})
+
 	it('should set the pressure of the destination node to the calculated value (1)', () => {
 		const sourceNode = new Node({ pressure: 100000, temperature: 300 })
 		const pipeSeg = new PipeSegment({
