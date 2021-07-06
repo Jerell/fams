@@ -77,8 +77,9 @@ export default class PipeSegment {
 		const f = Re < 2000 ? 64 / Re : 0.094 / (D * 1000) ** (1 / 3)
 
 		return (
-			(Math.sqrt(P1) * Math.sqrt(A ** (2 * D * P1) - f * L * v * w ** 2)) /
-			(A * Math.sqrt(D))
+			(A * Math.sqrt(D)) ** -1 *
+			Math.sqrt(P1) *
+			Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2)
 		)
 	}
 
