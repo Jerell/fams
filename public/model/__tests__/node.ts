@@ -166,7 +166,7 @@ describe('Density', () => {
 	it('should return 2.4 for T=220, P=100000', () => {
 		const node = new Node({ temperature: 220, pressure: 100000 })
 
-		expect(node.density).toBeCloseTo(2.4)
+		expect(node.density).toBeCloseTo(2.405)
 	})
 
 	it('should return 2.2 for T=240, P=100000', () => {
@@ -177,15 +177,15 @@ describe('Density', () => {
 })
 
 describe('Viscosity', () => {
-	it('should return 0.018 for T=373', () => {
+	it('should return 0.000018 for T=373', () => {
 		const node = new Node({ temperature: 373 })
 
-		expect(node.viscosity).toBeCloseTo(0.018)
+		expect(node.viscosity).toBeCloseTo(0.000018)
 	})
 
-	it('should return 0.008 for T=173', () => {
+	it('should return 0.000008 for T=173', () => {
 		const node = new Node({ temperature: 173 })
 
-		expect(node.viscosity).toBeCloseTo(0.008)
+		expect(node.viscosity).toBeCloseTo(0.000008)
 	})
 })

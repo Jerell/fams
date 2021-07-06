@@ -66,12 +66,12 @@ export default class Node {
 		const μ = 0.044
 		const R = 8.31462
 		return Number(
-			((this.pressure * μ) / (R * this.temperature)).toFixed(decimalPlaces)
+			(this.pressure * μ) / (R * this.temperature) //.toFixed(decimalPlaces)
 		)
 	}
 
 	get viscosity() {
-		const μ0 = 0.018 // Ref viscosity
+		const μ0 = 0.000018 // Ref viscosity
 		const T0 = 373 // Ref temperature
 		const C = 240 // Southerland constant
 		const T = this.temperature
