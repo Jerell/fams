@@ -42,6 +42,12 @@ describe('Constructor - initial properties', () => {
 
 		expect(node.flow.out).not.toBeUndefined()
 	})
+
+	it('should have a meter property that is false', () => {
+		const node = new Node()
+
+		expect(node.meter).toBe(false)
+	})
 })
 
 describe('Constructor - receiving properties', () => {
@@ -187,5 +193,15 @@ describe('Viscosity', () => {
 		const node = new Node({ temperature: 173 })
 
 		expect(node.viscosity).toBeCloseTo(0.000008)
+	})
+})
+
+describe('Meter', () => {
+	it('should be true after `this.setMeter` is called', () => {
+		const node = new Node()
+
+		node.setMeter()
+
+		expect(node.meter).toBe(true)
 	})
 })
