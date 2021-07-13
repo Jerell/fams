@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const links = [
-	{ label: 'Second page', href: '/story' },
+	{ label: 'UI', href: '/ui' },
 	{ label: 'Another page', href: '/recipes' },
 ]
 
@@ -11,11 +11,11 @@ const Appbar = () => {
 
 	return (
 		<div className='pt-safe w-full bg-gray-900 fixed top-0 z-20'>
-			<header className='bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800'>
+			<header className='bg-green-100 border-b border-green-200 dark:bg-gray-900 dark:border-gray-800'>
 				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
-							<h1 className='font-medium'>FAMS</h1>
+							<h1 className='font-medium'>Digital Twin</h1>
 						</a>
 					</Link>
 

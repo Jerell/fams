@@ -6,7 +6,7 @@ const BottomNav = () => {
 
 	return (
 		<div className='sm:hidden'>
-			<nav className='pb-safe w-full bg-gray-100 border-t dark:bg-gray-900 dark:border-gray-800 fixed bottom-0'>
+			<nav className='pb-safe w-full bg-green-100 border-t border-green-200 dark:bg-gray-900 dark:border-gray-800 fixed bottom-0'>
 				<div className='mx-auto px-6 max-w-md h-16 flex items-center justify-around'>
 					{links.map(({ href, label, icon }) => (
 						<Link key={label} href={href}>
