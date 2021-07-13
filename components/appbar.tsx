@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const links = [
-	{ label: 'Second page', href: '/story' },
+	{ label: 'UI', href: '/ui' },
 	{ label: 'Another page', href: '/recipes' },
 ]
 
