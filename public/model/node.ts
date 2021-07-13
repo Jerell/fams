@@ -20,6 +20,7 @@ export default class Node {
 		in: number
 		out: number
 	}
+	meter: boolean
 
 	constructor(props: INode = {}) {
 		this.name = props.name || 'node'
@@ -31,6 +32,7 @@ export default class Node {
 			in: 0,
 			out: 0,
 		}
+		this.meter = false
 
 		if (props.flow && props.flow.out) this._flow.out = props.flow.out
 		if (props.flow && props.flow.in) this._flow.in = props.flow.in
@@ -76,5 +78,9 @@ export default class Node {
 		const C = 240 // Southerland constant
 		const T = this.temperature
 		return μ0 * ((T0 + C) / (T + C)) * (T / T0) ** (3 / 2)
+	}
+
+	setMeter() {
+		this.meter = true
 	}
 }
