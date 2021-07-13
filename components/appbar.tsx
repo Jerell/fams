@@ -15,7 +15,7 @@ const Appbar = () => {
 				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
-							<h1 className='font-medium'>FAMS</h1>
+							<h1 className='font-medium'>Digital Twin</h1>
 						</a>
 					</Link>
 
