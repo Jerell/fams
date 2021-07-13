@@ -2,6 +2,7 @@ import Page from '@/components/page'
 import Network from '@/public/model/network'
 import NetworkMap from '@/components/networkMap'
 import Link from 'next/link'
+import NumberInput from '@/components/input/numberInput'
 
 const TCGItem = ({ children, i, bg }) => {
 	const cln = (item) => {
@@ -91,6 +92,45 @@ const gi3 = [
 	'go underneath',
 ]
 
+const gInputElems = [
+	<NumberInput
+		required
+		label='temperature'
+		labelClasses=''
+		unit='K'
+		unitRight
+	></NumberInput>,
+	<NumberInput
+		required
+		label='temperature'
+		labelClasses=''
+		unit='°C'
+		unitRight
+	></NumberInput>,
+	<NumberInput
+		required
+		label='temperature'
+		labelClasses=''
+		unit='°F'
+		unitRight
+	></NumberInput>,
+	<NumberInput
+		required
+		label='pressure'
+		labelClasses=''
+		unit='bar'
+		unitRight
+	></NumberInput>,
+	<NumberInput
+		required
+		label='pressure'
+		labelClasses=''
+		unit='pa'
+		unitRight
+	></NumberInput>,
+	<NumberInput label='???' labelClasses='' unit='£'></NumberInput>,
+]
+
 const UIPage = () => (
 	<Page>
 		<section className='mt-20 border-r border-t border-green-300'>
@@ -128,7 +168,8 @@ const UIPage = () => (
 			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
 				gonna show some input elements here
 			</p>
-			<ThreeColGrid demoBG={true}>{Array(9).fill(' ')}</ThreeColGrid>
+
+			<ThreeColGrid>{gInputElems}</ThreeColGrid>
 		</section>
 		<section className='border-r border-t border-green-300'>
 			<h2 className='text-xl font-semibold border-l pl-1 border-green-300 text-green-700'>
@@ -136,7 +177,8 @@ const UIPage = () => (
 			</h2>
 
 			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
-				and some display elements here
+				and some display elements here. probably just a big number with a unit
+				or something not sure yet
 			</p>
 			<ThreeColGrid demoBG={true}>{Array(9).fill(' ')}</ThreeColGrid>
 		</section>
