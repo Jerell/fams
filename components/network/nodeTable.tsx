@@ -16,13 +16,13 @@ const NodeRow = ({ node }: IRow) => {
 				</div>
 			</td>
 			<td>
-				<div className='text-gray-900'>{node.temperature}</div>
+				<div className='text-gray-900'>{node.temperature + 273}</div>
 			</td>
 			<td className='py-1'>
 				<span
 					className={`py-0.5 px-1 inline-flex leading-5 font-semibold rounded-full bg-green-100 text-green-800`}
 				>
-					{node.pressure}
+					{node.pressure * 1e-5}
 				</span>
 			</td>
 			<td className='text-gray-500'>
@@ -36,8 +36,8 @@ const NodeTable = ({ network }) => {
 	const { nodes } = network
 	const headings = [
 		'Node',
-		'Temp (K)',
-		'Pressure (Pa)',
+		'Temp (°C)',
+		'Pressure (Bar)',
 		'Flow rate (in, out) (kg/s)',
 	]
 
