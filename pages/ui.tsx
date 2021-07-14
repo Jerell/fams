@@ -140,11 +140,15 @@ const UIPage = () => (
 
 			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
 				I copied the borders on{' '}
-				<Link href='https://angaraservice.com/'>this page</Link> but moved it to
-				the top and right sides of each section and made it green because it
-				looks a bit like a plant with leaves that branch out over each heading.
-				we could add svg decorations and animations to these borders to make it
-				look nice
+				<Link href='https://angaraservice.com/'>
+					<span className='font-bold hover:underline cursor-pointer text-green-500'>
+						this page
+					</span>
+				</Link>{' '}
+				but moved it to the top and right sides of each section and made it
+				green because it looks a bit like a plant with leaves that branch out
+				over each heading. we could add svg decorations and animations to these
+				borders to make it look nice
 			</p>
 		</section>
 		<section className='border-r border-t border-green-300'>
