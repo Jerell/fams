@@ -51,7 +51,6 @@ const PipeTable = ({ network }) => {
 				<tr className='text-center'>{headings.map((h, i) => heading(h, i))}</tr>
 			</thead>
 			<tbody className='divide-y divide-gray-200'>
-				<PipeRow pipe={pipes[0]} />
 				{pipes.map((n, i) => (
 					<PipeRow pipe={n} key={i} />
 				))}
