@@ -71,37 +71,53 @@ const gInputElems = [
 		label='temperature'
 		labelClasses=''
 		unit='K'
-		unitRight
 	></NumberInput>,
 	<NumberInput
 		required
 		label='temperature'
 		labelClasses=''
 		unit='°C'
-		unitRight
 	></NumberInput>,
 	<NumberInput
 		required
 		label='temperature'
 		labelClasses=''
 		unit='°F'
-		unitRight
 	></NumberInput>,
 	<NumberInput
 		required
 		label='pressure'
 		labelClasses=''
 		unit='bar'
-		unitRight
 	></NumberInput>,
 	<NumberInput
 		required
 		label='pressure'
 		labelClasses=''
 		unit='Pa'
-		unitRight
 	></NumberInput>,
-	<NumberInput label='???' labelClasses='' unit='£'></NumberInput>,
+	<NumberInput
+		label='currency'
+		labelClasses=''
+		unit='£'
+		unitLeft
+	></NumberInput>,
+	<NumberInput
+		label='currency'
+		labelClasses=''
+		unitListType='currency'
+		unitLeft
+	></NumberInput>,
+	<NumberInput
+		label='pressure'
+		labelClasses=''
+		unitListType='pressure'
+	></NumberInput>,
+	<NumberInput
+		label='distance'
+		labelClasses=''
+		unitListType='length'
+	></NumberInput>,
 	<Button />,
 	<Button text='click' />,
 	<Button text='!!!' />,

@@ -64,14 +64,14 @@ const modifyGrid = [
 		label='pressure'
 		labelClasses=''
 		unit='bar'
-		unitRight
+		unitLeft
 	></NumberInput>,
 	<NumberInput
 		required
 		label='temperature'
 		labelClasses=''
 		unit='°C'
-		unitRight
+		unitLeft
 	></NumberInput>,
 	<Button text='Update' />,
 ]
