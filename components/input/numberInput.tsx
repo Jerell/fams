@@ -18,7 +18,7 @@ const UnitSelect = ({ type }) => {
 			<label htmlFor='unit' className='sr-only'>
 				Unit
 			</label>
-			<select name='unit' className='outline-none bg-green-50 w-10'>
+			<select name='unit' className='outline-none bg-green-50'>
 				{options.map((o, i) => (
 					<option key={i}>{o}</option>
 				))}
