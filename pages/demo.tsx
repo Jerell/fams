@@ -13,38 +13,38 @@ import PipeTable from '@/components/network/pipeTable'
 // Network for grid
 
 const tjv = new Network({ name: 'join' })
-const TJV0 = tjv.addNode({ temperature: 220 })
-const TJV1 = tjv.addNode({ temperature: 220 })
-const TJV2 = tjv.addNode({ temperature: 220 })
-const TJV3 = tjv.addNode({ pressure: 10000, temperature: 220 })
+const N0 = tjv.addNode({ temperature: 220 })
+const N1 = tjv.addNode({ temperature: 220 })
+const N2 = tjv.addNode({ temperature: 220 })
+const N3 = tjv.addNode({ pressure: 10000, temperature: 220 })
 
-const tjvP0 = tjv.addPipe({
+const P0 = tjv.addPipe({
 	length: 200,
 	diameter: 2,
 	massFlow: 10,
 	ignoreDestination: true,
 })
-tjvP0.source = TJV0
-tjvP0.destination = TJV1
-tjvP0.addValve()
+P0.source = N0
+P0.destination = N1
+P0.addValve()
 
-const tjvP1 = tjv.addPipe({
+const P1 = tjv.addPipe({
 	length: 200,
 	diameter: 2,
 	massFlow: 10,
 	ignoreDestination: true,
 })
-tjvP1.source = TJV1
-tjvP1.destination = TJV2
+P1.source = N1
+P1.destination = N2
 
-const tjvP2 = tjv.addPipe({
+const P2 = tjv.addPipe({
 	length: 200,
 	diameter: 2,
 	massFlow: 10,
 	ignoreDestination: true,
 })
-tjvP2.source = TJV3
-tjvP2.destination = TJV1
+P2.source = N3
+P2.destination = N1
 
 // End network
 
@@ -102,6 +102,14 @@ const UIPage = () => (
 			</p>
 			<ThreeColGrid>{grid1content}</ThreeColGrid>
 			<NodeTable network={tjv} />
+			<p className='mt-2 px-2 text-gray-600 dark:text-gray-400'>
+				Pressure values are only calculated on initialisation or when a pipe
+				segment receives a new source or destination node. The pipes were
+				created in the order shown below, which means the pressure at N2 is only
+				calculated once, before N3 is connected to N1. N2 is unaware of the
+				change that affected the pressure at N1, so the calculated pressure
+				remains what it was when N1 was only connected to N0.
+			</p>
 			<PipeTable network={tjv} />
 		</Section>
 		<Section>
