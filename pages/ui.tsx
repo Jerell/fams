@@ -1,6 +1,6 @@
 import Page from '@/components/page'
 import Network from '@/public/model/network'
-import NetworkMap from '@/components/networkMap'
+import NetworkMap from '@/components/network/networkMap'
 import Link from 'next/link'
 import NumberInput from '@/components/input/numberInput'
 import Button from '@/components/input/button'

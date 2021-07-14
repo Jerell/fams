@@ -1,6 +1,6 @@
 import Page from '@/components/page'
 import NodeInput from '@/components/input/nodeInput'
-import NetworkMap from '@/components/input/networkMap'
+import NetworkMap from '@/components/network/networkMap'
 import Network from '@/public/model/network'
 
 // Network: basic

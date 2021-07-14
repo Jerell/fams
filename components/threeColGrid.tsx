@@ -1,4 +1,4 @@
-import NetworkMap from '@/components/networkMap'
+import NetworkMap from '@/components/network/networkMap'
 
 const TCGItem = ({ children, i, bg }) => {
 	const cln = (item) => {
