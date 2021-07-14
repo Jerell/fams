@@ -3,6 +3,7 @@ import Network from '@/public/model/network'
 import NetworkMap from '@/components/networkMap'
 import Link from 'next/link'
 import NumberInput from '@/components/input/numberInput'
+import Button from '@/components/input/button'
 
 const TCGItem = ({ children, i, bg }) => {
 	const cln = (item) => {
@@ -129,6 +130,9 @@ const gInputElems = [
 		unitRight
 	></NumberInput>,
 	<NumberInput label='???' labelClasses='' unit='£'></NumberInput>,
+	<Button />,
+	<Button text='click' />,
+	<Button text='!!!' />,
 ]
 
 const UIPage = () => (
