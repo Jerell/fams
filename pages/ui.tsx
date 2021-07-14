@@ -98,7 +98,7 @@ const gInputElems = [
 		required
 		label='pressure'
 		labelClasses=''
-		unit='pa'
+		unit='Pa'
 		unitRight
 	></NumberInput>,
 	<NumberInput label='???' labelClasses='' unit='£'></NumberInput>,

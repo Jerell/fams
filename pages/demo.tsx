@@ -1,92 +1,64 @@
 import Page from '@/components/page'
 import Network from '@/public/model/network'
-import NetworkMap from '@/components/networkMap'
+import NetworkMap from '@/components/network/networkMap'
 import Link from 'next/link'
 import NumberInput from '@/components/input/numberInput'
 import Button from '@/components/input/button'
 import ThreeColGrid from '@/components/threeColGrid'
 import Heading from '@/components/heading'
 import Section from '@/components/section'
-
-const gridItems = [
-	'these',
-	'boxes',
-	'have',
-	'2 pixels',
-	'of padding',
-	'and scale to fit the screen size',
-	'they should increase in height to fit more text too',
-	'✔',
-	'👍',
-]
-
-const gridItems2 = [
-	'this',
-	'grid',
-	'is',
-	'just',
-	'like',
-	'the',
-	'one',
-	'above',
-	'but',
-	'without',
-	'the',
-	'background.',
-	'it',
-	'can',
-	'have',
-	'as',
-	'many',
-	'items',
-	'as',
-	'we',
-	'need',
-]
+import NodeTable from '@/components/network/nodeTable'
+import PipeTable from '@/components/network/pipeTable'
 
 // Network for grid
 
-const net = new Network({ name: 'net' })
-const B0 = net.addNode()
-const B1 = net.addNode()
-net.addPipe({
+const tjv = new Network({ name: 'join' })
+const TJV0 = tjv.addNode({ temperature: 220 })
+const TJV1 = tjv.addNode({ temperature: 220 })
+const TJV2 = tjv.addNode({ temperature: 220 })
+const TJV3 = tjv.addNode({ pressure: 10000, temperature: 220 })
+
+const tjvP0 = tjv.addPipe({
 	length: 200,
 	diameter: 2,
 	massFlow: 10,
-	source: B0,
-	destination: B1,
+	ignoreDestination: true,
 })
+tjvP0.source = TJV0
+tjvP0.destination = TJV1
+tjvP0.addValve()
 
-const gi3 = [
-	'Network maps can go in the grid too and the surrounding panels could have content related to the map',
-	<NetworkMap network={net} />,
-	'because of their size their box is never 1/3 width',
-	'these boxes',
-	'go underneath',
+const tjvP1 = tjv.addPipe({
+	length: 200,
+	diameter: 2,
+	massFlow: 10,
+	ignoreDestination: true,
+})
+tjvP1.source = TJV1
+tjvP1.destination = TJV2
+
+const tjvP2 = tjv.addPipe({
+	length: 200,
+	diameter: 2,
+	massFlow: 10,
+	ignoreDestination: true,
+})
+tjvP2.source = TJV3
+tjvP2.destination = TJV1
+
+// End network
+
+const grid1content = [
+	<>
+		<Button text='Case 1' />
+		<Button text='Case 2' />
+		<Button text='Case 3' />
+		<Button text='Case 4' />
+	</>,
+	<NetworkMap network={tjv} />,
 ]
 
-const gInputElems = [
-	<NumberInput
-		required
-		label='temperature'
-		labelClasses=''
-		unit='K'
-		unitRight
-	></NumberInput>,
-	<NumberInput
-		required
-		label='temperature'
-		labelClasses=''
-		unit='°C'
-		unitRight
-	></NumberInput>,
-	<NumberInput
-		required
-		label='temperature'
-		labelClasses=''
-		unit='°F'
-		unitRight
-	></NumberInput>,
+const modifyGrid = [
 	<NumberInput
 		required
 		label='pressure'
@@ -96,60 +68,45 @@ const gInputElems = [
 	></NumberInput>,
 	<NumberInput
 		required
-		label='pressure'
+		label='temperature'
 		labelClasses=''
-		unit='pa'
+		unit='°C'
 		unitRight
 	></NumberInput>,
-	<NumberInput label='???' labelClasses='' unit='£'></NumberInput>,
-	<Button />,
-	<Button text='click' />,
-	<Button text='!!!' />,
+	<Button text='Update' />,
 ]
 
 const UIPage = () => (
 	<Page>
 		<Section>
-			<Heading>User Interface</Heading>
+			<Heading>Demo</Heading>
 
-			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
-				I copied the borders on{' '}
-				<Link href='https://angaraservice.com/'>
-					<span className='font-bold hover:underline cursor-pointer text-green-500'>
-						this page
-					</span>
-				</Link>{' '}
-				but moved it to the top and right sides of each Section and made it
-				green because it looks a bit like a plant with leaves that branch out
-				over each heading. we could add svg decorations and animations to these
-				borders to make it look nice
+			<p className='mt-2 px-2 text-gray-600 dark:text-gray-400'>
+				this page will be set up to look like the actual product instead of just
+				a list of elements
 			</p>
 		</Section>
 		<Section>
-			<Heading>Grid</Heading>
+			<Heading>Network map</Heading>
 
-			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
-				this Section just shows a few panels in a grid. this text is outside of
-				the grid
+			<p className='mt-2 px-2 text-gray-600 dark:text-gray-400'>
+				This network map shows two pipes joining at a node. Node N0 has a higher
+				pressure than N3, so there is a pressure discontinuity at the end of
+				pipe P0, which connects node N0 to node N1.
 			</p>
-			<ThreeColGrid demoBG={true}>{gridItems}</ThreeColGrid>
-			<ThreeColGrid>{gridItems2}</ThreeColGrid>
-			<ThreeColGrid demoBG={false}>{gi3}</ThreeColGrid>
+			<p className='mt-2 px-2 text-gray-600 dark:text-gray-400'>
+				Pipe P0 has been drawn in red because of this pressure discontinuity.
+			</p>
+			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
+				A valve, represented by the blue circle, has been added to pipe P0.
+			</p>
+			<ThreeColGrid>{grid1content}</ThreeColGrid>
+			<NodeTable network={tjv} />
+			<PipeTable network={tjv} />
 		</Section>
 		<Section>
-			<Heading>Input fields and buttons</Heading>
-
-			<ThreeColGrid>{gInputElems}</ThreeColGrid>
-		</Section>
-		<Section>
-			<h2 className='text-xl font-semibold border-l pl-1 border-green-300 text-green-700'>
-				Display elements
-			</h2>
-
-			<p className='mt-2 pb-5 px-2 text-gray-600 dark:text-gray-400'>
-				gonna show some display elements here
-			</p>
-			<ThreeColGrid demoBG={true}>{Array(9).fill(' ')}</ThreeColGrid>
+			<Heading>Modify node: join-N0</Heading>
+			<ThreeColGrid>{modifyGrid}</ThreeColGrid>
 		</Section>
 	</Page>
 )

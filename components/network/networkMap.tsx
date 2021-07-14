@@ -18,7 +18,7 @@ const NetworkMap = (props: { network: Network }) => {
 
 	function init(svgRef: React.RefObject<SVGSVGElement>, network: Network) {
 		const settings = {
-			width: 300,
+			width: 450,
 			height: 150,
 			node: {
 				radius: 5,
@@ -150,23 +150,6 @@ const NetworkMap = (props: { network: Network }) => {
 					{network.name}
 				</h2>
 				<svg ref={svg}></svg>
-				<h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-					Entities
-				</h2>
-				<p className='italic'>nodes</p>
-				<ul className='list-disc'>
-					{network.nodes.map((n, i) => (
-						<li key={i}>{n.name}</li>
-					))}
-				</ul>
-				<p className='mt-2 italic'>pipes</p>
-				<ul className='list-disc'>
-					{network.pipes.map((p, i) => (
-						<li key={i}>{`${p.name}: ${p.source.name} → ${p.destination.name} ${
-							p.valve ? '(V)' : ''
-						}`}</li>
-					))}
-				</ul>
 			</div>
 		</>
 	)
