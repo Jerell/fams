@@ -7,7 +7,7 @@ import {
 } from 'd3-force'
 import { select } from 'd3-selection'
 import Network from '@/public/model/network'
-import networkStyles from '../styles/network.module.css'
+import networkStyles from '@/styles/network.module.css'
 
 const NetworkMap = (props: { network: Network }) => {
 	const svg = useRef<SVGSVGElement>(null)
@@ -147,7 +147,7 @@ const NetworkMap = (props: { network: Network }) => {
 		<>
 			<div className='network relative overflow-hidden w-full h-full mb-6'>
 				<h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-					Network Map: {network.name}
+					{network.name}
 				</h2>
 				<svg ref={svg}></svg>
 				<h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
@@ -163,7 +163,7 @@ const NetworkMap = (props: { network: Network }) => {
 				<ul className='list-disc'>
 					{network.pipes.map((p, i) => (
 						<li key={i}>{`${p.name}: ${p.source.name} → ${p.destination.name} ${
-							p.valve ? '(has valve)' : ''
+							p.valve ? '(V)' : ''
 						}`}</li>
 					))}
 				</ul>
