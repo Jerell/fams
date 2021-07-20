@@ -190,4 +190,20 @@ describe('interpolateEnthalpy', () => {
 
 		expect(interpolated).toBe(-20069.93225227965)
 	})
+
+	it('should match spreadsheet result', async () => {
+		const eos = await new EOS().load()
+
+		const interpolated = await eos.interpolateEnthalpy({ PT: 2e6, TM: 15 })
+
+		expect(interpolated).toBe(-29102.786966438827)
+	})
+
+	it('should match spreadsheet result 2', async () => {
+		const eos = await new EOS().load()
+
+		const outtemp = await eos.getOutTemp(2e6, 15, 1.5e6)
+
+		expect(outtemp).toBe(8.97651007)
+	})
 })

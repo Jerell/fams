@@ -3,6 +3,7 @@ const fs = require('fs')
 import binarySearch from '@/public/utils/binarySearch'
 import boundarySearch from '@/public/utils/boundarySearch'
 import { IBoundary } from '@/public/utils/boundarySearch'
+import { isRegExp } from 'util'
 
 export default class EOS {
 	data: Object[]
@@ -133,11 +134,11 @@ export default class EOS {
 			const x1y1_enth =
 				pressureRows.highPressure[boundaries.temperature.highPT.idx.high].HG
 
-			const weight_left = boundaries.pressure.weights.low
-			const weight_right = boundaries.pressure.weights.high
+			const weight_left = boundaries.pressure.weights.low || 1
+			const weight_right = boundaries.pressure.weights.high || 0
 
-			const weight_down = boundaries.temperature.lowPT.weights.low
-			const weight_up = boundaries.temperature.lowPT.weights.high
+			const weight_down = boundaries.temperature.lowPT.weights.low || 1
+			const weight_up = boundaries.temperature.lowPT.weights.high || 0
 
 			const y0_avg = weight_left * x0y0_enth + weight_right * x1y0_enth
 			const y1_avg = weight_left * x0y1_enth + weight_right * x1y1_enth
@@ -153,8 +154,7 @@ export default class EOS {
 	async getOutTemp(p_in: number, t_in: number, p_out: number) {
 		if (!this.data.length) await this.load()
 
-		const inrow = await this.selectRow({ PT: p_in, TM: t_in })
-		const h = inrow.HG
+		const h = (await this.interpolateEnthalpy({ PT: p_in, TM: t_in })) as number
 
 		const outrow = await this.selectRow({ PT: p_out, HG: h })
 		const t_out = Number(outrow.TM)
