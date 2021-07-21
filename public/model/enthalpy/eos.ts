@@ -164,7 +164,7 @@ export default class EOS {
 	async getOutTemp(p_in: number, t_in: number, p_out: number) {
 		if (!this.data.length) await this.load()
 
-		const { hg, weights } = await this.interpolateEnthalpy({
+		const { hg } = await this.interpolateEnthalpy({
 			PT: p_in,
 			TM: t_in,
 		})
@@ -220,11 +220,24 @@ export default class EOS {
 
 		const tempDist = {
 			left: tempEnthScaleFactor.x0 * enthDist.left,
-			right: tempEnthScaleFactor.x0 * enthDist.right,
+			right: tempEnthScaleFactor.x1 * enthDist.right,
 		}
 
 		const Te = Number(newPoints.x0y0.TM) + tempDist.left
 		const Th = Number(newPoints.x1y0.TM) + tempDist.right
+
+		console.log({
+			Th,
+			tm: Number(newPoints.x1y0.TM),
+			t_dist: tempDist.right,
+			h_dist: enthDist.right,
+		})
+
+		console.log(
+			`Th = ${Number(newPoints.x1y0.TM)} + ${
+				tempEnthScaleFactor.x0
+			} * (${hg} - ${h.right.low})`
+		)
 
 		const xCentre = (Th - Te) / (p2_high - p2_low)
 		console.log({ xCentre })

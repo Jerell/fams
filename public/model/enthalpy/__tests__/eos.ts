@@ -172,16 +172,6 @@ describe('selectRow', () => {
 	})
 })
 
-describe('getOutTemp', () => {
-	it('should return the correct out temperature', async () => {
-		const eos = await new EOS().load()
-
-		const out_temp = await eos.getOutTemp(47976.5101, 50, 1000)
-
-		expect(out_temp).toEqual(49.5469799)
-	})
-})
-
 describe('interpolateEnthalpy', () => {
 	it('should interpolate', async () => {
 		const eos = await new EOS().load()
@@ -204,20 +194,14 @@ describe('interpolateEnthalpy', () => {
 
 		expect(hg).toBe(-29102.786966438827)
 	})
+})
 
-	it('should match spreadsheet result 2', async () => {
+describe('getOutTemp', () => {
+	it('should match spreadsheet result', async () => {
 		const eos = await new EOS().load()
 
 		const outtemp = await eos.getOutTemp(2e6, 15, 1.5e6)
 
-		expect(outtemp).toBe(8.97651007)
-	})
-
-	it('should match spreadsheet result (new)', async () => {
-		const eos = await new EOS().load()
-
-		const outtemp = await eos.getOutTemp(2e6, 15, 1.5e6)
-
-		expect(outtemp).toBe(8.96596345236826)
+		expect(outtemp).toBe(8.965963452368262)
 	})
 })
