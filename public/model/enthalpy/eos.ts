@@ -226,22 +226,7 @@ export default class EOS {
 		const Te = Number(newPoints.x0y0.TM) + tempDist.left
 		const Th = Number(newPoints.x1y0.TM) + tempDist.right
 
-		console.log({
-			Th,
-			tm: Number(newPoints.x1y0.TM),
-			t_dist: tempDist.right,
-			h_dist: enthDist.right,
-		})
-
-		console.log(
-			`Th = ${Number(newPoints.x1y0.TM)} + ${
-				tempEnthScaleFactor.x0
-			} * (${hg} - ${h.right.low})`
-		)
-
 		const xCentre = (Th - Te) / (p2_high - p2_low)
-		console.log({ xCentre })
-		console.log(`${p_out} - ${p2_low} = ${p_out - p2_low}`)
 		const t_out = Te + xCentre * (p_out - p2_low)
 
 		return t_out
