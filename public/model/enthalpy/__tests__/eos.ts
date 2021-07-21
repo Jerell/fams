@@ -186,17 +186,23 @@ describe('interpolateEnthalpy', () => {
 	it('should interpolate', async () => {
 		const eos = await new EOS().load()
 
-		const interpolated = await eos.interpolateEnthalpy({ PT: 1001, TM: 1 })
+		const { hg, weights } = await eos.interpolateEnthalpy({
+			PT: 1001,
+			TM: 1,
+		})
 
-		expect(interpolated).toBe(-20069.93225227965)
+		expect(hg).toBe(-20069.93225227965)
 	})
 
 	it('should match spreadsheet result', async () => {
 		const eos = await new EOS().load()
 
-		const interpolated = await eos.interpolateEnthalpy({ PT: 2e6, TM: 15 })
+		const { hg, weights } = await eos.interpolateEnthalpy({
+			PT: 2e6,
+			TM: 15,
+		})
 
-		expect(interpolated).toBe(-29102.786966438827)
+		expect(hg).toBe(-29102.786966438827)
 	})
 
 	it('should match spreadsheet result 2', async () => {
@@ -205,5 +211,13 @@ describe('interpolateEnthalpy', () => {
 		const outtemp = await eos.getOutTemp(2e6, 15, 1.5e6)
 
 		expect(outtemp).toBe(8.97651007)
+	})
+
+	it('should match spreadsheet result (new)', async () => {
+		const eos = await new EOS().load()
+
+		const outtemp = await eos.getOutTemp(2e6, 15, 1.5e6)
+
+		expect(outtemp).toBe(8.96596345236826)
 	})
 })
